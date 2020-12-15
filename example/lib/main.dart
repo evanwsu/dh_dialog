@@ -59,21 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       context: context,
                       builder: (context) {
                         return DHAlertDialog(
-                          // titleText: "确定要删除设备吗",
-                          // contentText: "删除设备后，需要重新配网才能控制设备",
+                          titleText: "确定要删除设备吗",
+                          contentText: "删除设备后，需要重新配网才能控制设备",
                           hasPositive: true,
                           hasNegative: false,
-                          positiveTap: (){
+                          positiveTap: () {
                             Navigator.pop(context);
                           },
-                          negativeTap: (){
-                          },
+                          negativeTap: () {},
                         );
                       },
                       entryAnimation: EntryAnimation.slideBottom);
                 },
-                child: Text("Title Content Action")
-            ),
+                child: Text("Title Content Action")),
             FlatButton(
                 onPressed: () {
                   showDHDialog(
@@ -87,29 +85,31 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       entryAnimation: EntryAnimation.fade);
                 },
-                child: Text("Title Content Action")
-            ),
-            FlatButton(onPressed: () {
-              showDHDialog(
-                entryAnimation: EntryAnimation.slideBottom,
-                context: context,
-                builder: (context){
-                  return DHListDialog(
-                    title: Text("班级"),
-                      datas: [
-                        DialogListItem(title: "高一(1)班", onTap: (){
-
-                        }),
-                        DialogListItem(title: "高一(2)班", onTap: (){
-
-                        }),
-                        DialogListItem(title: "高一(3)班", onTap: (){
-
-                        }),
-                  ]);
-                }
-              );
-            }, child: Text("List Dialog"))
+                child: Text("Title Content Action")),
+            FlatButton(
+                onPressed: () {
+                  showDHDialog(
+                      entryAnimation: EntryAnimation.slideBottom,
+                      context: context,
+                      builder: (context) {
+                        return DHListDialog(
+                          titleText: "班级",
+                          datas: [
+                            DialogListItem(text: "高一(1)班", data: "1"),
+                            DialogListItem(text: "高一(2)班", data: "2"),
+                            DialogListItem(text: "高一(3)班", data: "3"),
+                          ],
+                          titleAlign: TextAlign.center,
+                          itemAlignment: Alignment.topLeft,
+                          // hasNegative: false,
+                          hasPositive: false,
+                          itemClickListener: (data, position){
+                            print('data: $data, position: $position');
+                          },
+                        );
+                      });
+                },
+                child: Text("List Dialog"))
           ],
         ),
       ),

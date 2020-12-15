@@ -12,7 +12,7 @@ import 'base_dialog.dart';
 
 /// 标准提示框，用于提示一些信息
 /// 可以设置标题和内容，支持取消和确认按键设置，也可设置其中一个
-/// showSlideDialog(
+/// showDHDialog(
 ///    context: context,
 ///    builder: (BuildContext context){
 ///    return DHAlertDialog(
@@ -20,20 +20,12 @@ import 'base_dialog.dart';
 ///    titleText: "这是一个title",
 ///    contentText: "这是内容区域略略略略略",
 ///    positiveText: "确认",
-///    negativeText: "取消",
-///    positiveTap: (){
-///      showToast("确认");
-///    },
-///    negativeTap: (){
-///      showToast("取消");
-///    },
+///    negativeText: "取消"
 ///    );
 ///   }
 /// );
 
 class DHAlertDialog extends StatelessWidget {
-  static const double _defaultActionHeight = 49.0;
-
   /// 标题控件
   final Widget title;
 
@@ -80,6 +72,9 @@ class DHAlertDialog extends StatelessWidget {
   /// 肯定按钮点击事件
   final GestureTapCallback positiveTap;
 
+  /// 右侧确定按钮，默认true
+  final bool hasPositive;
+
   /// 否定按钮文本
   final String negativeText;
 
@@ -89,6 +84,9 @@ class DHAlertDialog extends StatelessWidget {
 
   /// 否定按钮点击事件
   final GestureTapCallback negativeTap;
+
+  /// 左侧取消按钮
+  final bool hasNegative;
 
   /// 按钮高度设置
   final double actionHeight;
@@ -107,13 +105,10 @@ class DHAlertDialog extends StatelessWidget {
   final double circleRadius;
 
   /// 对话框的边距
-  final EdgeInsetsGeometry dialogPadding;
+  final EdgeInsetsGeometry dialogMargin;
 
   /// 对话框对齐方式
   final AlignmentGeometry alignment;
-
-  final bool hasNegative;
-  final bool hasPositive;
 
   DHAlertDialog(
       {Key key,
@@ -136,7 +131,7 @@ class DHAlertDialog extends StatelessWidget {
       this.circleRadius = 20.0,
       this.backgroundColor,
       this.elevation,
-      this.dialogPadding,
+      this.dialogMargin,
       this.dividerColor = DHColors.color_000000_15,
       this.alignment = Alignment.center,
       this.actionHeight,
@@ -203,7 +198,7 @@ class DHAlertDialog extends StatelessWidget {
     // 添加Action
     if (actions.isNotEmpty) {
       actionWidget = Container(
-          height: actionHeight ?? _defaultActionHeight,
+          height: actionHeight ?? DialogStyle.defaultActionHeight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: actions,
@@ -230,7 +225,7 @@ class DHAlertDialog extends StatelessWidget {
       backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(radius)),
       elevation: elevation,
-      dialogMargin: dialogPadding,
+      dialogMargin: dialogMargin,
       divider: dividerWidget,
       alignment: alignment,
     );
