@@ -108,7 +108,7 @@ class DHAlertDialog extends StatelessWidget {
   final EdgeInsetsGeometry dialogMargin;
 
   /// 对话框对齐方式
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry dialogAlignment;
 
   DHAlertDialog(
       {Key key,
@@ -133,11 +133,11 @@ class DHAlertDialog extends StatelessWidget {
       this.elevation,
       this.dialogMargin,
       this.dividerColor = DHColors.color_000000_15,
-      this.alignment = Alignment.center,
+      this.dialogAlignment = Alignment.center,
       this.actionHeight,
       this.hasNegative = true,
       this.hasPositive = true})
-      : assert(alignment != null),
+      : assert(dialogAlignment != null),
         assert(titleAlign != null),
         assert(contentAlign != null),
         super(key: key);
@@ -227,7 +227,7 @@ class DHAlertDialog extends StatelessWidget {
       elevation: elevation,
       dialogMargin: dialogMargin,
       divider: dividerWidget,
-      alignment: alignment,
+      dialogAlignment: dialogAlignment,
     );
   }
 }

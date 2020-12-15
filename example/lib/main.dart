@@ -94,17 +94,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context) {
                         return DHListDialog(
                           titleText: "班级",
-                          datas: [
-                            DialogListItem(text: "高一(1)班", data: "1"),
-                            DialogListItem(text: "高一(2)班", data: "2"),
-                            DialogListItem(text: "高一(3)班", data: "3"),
-                          ],
                           titleAlign: TextAlign.center,
-                          itemAlignment: Alignment.topLeft,
+                          datas: [
+                            DialogListItem<TextItem, String>(TextItem(text: "高一(1)班"),  data: "1"),
+                            DialogListItem<TextItem, String>(TextItem(text: "高一(2)班"), data: "2"),
+                            DialogListItem<TextItem, String>(TextItem(text: "高一(3)班"), data: "3"),
+                          ],
+                          itemAlignment: Alignment.centerLeft,
                           // hasNegative: false,
-                          hasPositive: false,
+                          // hasPositive: false,
                           itemClickListener: (data, position){
                             print('data: $data, position: $position');
+                            Navigator.of(context).pop();
+                          },
+                          dividerColor: Colors.yellow,
+                          itemDividerBuilder: (context, index){
+                            return Container(
+                              color: Colors.red,
+                              height: 1.0,
+                            );
+                          },
+                          actionDividerBuilder: (context, type){
+                            return Container(
+                              color: Colors.purple,
+                              height: type == DividerType.horizontal ? 1.0 : null,
+                              width:  type == DividerType.vertical ? 1.0 : null,
+                            );
                           },
                         );
                       });

@@ -24,7 +24,7 @@ class DHDialog extends StatelessWidget {
 
   /// actions  和 content之间的分割线
   final Widget divider;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry dialogAlignment;
 
   DHDialog(
       {Key key,
@@ -40,7 +40,7 @@ class DHDialog extends StatelessWidget {
       this.elevation,
       this.dialogMargin,
       this.divider,
-      this.alignment = Alignment.center})
+      this.dialogAlignment = Alignment.center})
       : super(key: key);
 
   @override
@@ -88,7 +88,7 @@ class DHDialog extends StatelessWidget {
         backgroundColor: backgroundColor,
         elevation: elevation,
         dialogMargin: dialogMargin,
-        alignment: alignment,
+        dialogAlignment: dialogAlignment,
         shape: shape,
         child: dialog);
   }
@@ -109,7 +109,7 @@ class BaseDialog extends StatelessWidget {
 
   /// 对话框padding
   final EdgeInsetsGeometry dialogMargin;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry dialogAlignment;
   final Widget child;
 
   BaseDialog(
@@ -119,7 +119,7 @@ class BaseDialog extends StatelessWidget {
       this.shape,
       this.elevation,
       this.dialogMargin,
-      this.alignment = Alignment.center})
+      this.dialogAlignment = Alignment.center})
       : super(key: key);
 
   @override
@@ -143,7 +143,7 @@ class BaseDialog extends StatelessWidget {
         removeBottom: true,
         context: context,
         child: Align(
-          alignment: alignment,
+          alignment: dialogAlignment,
           child: ConstrainedBox(
             constraints: BoxConstraints(minWidth: 280.0, maxWidth: maxWidth),
             child: Material(

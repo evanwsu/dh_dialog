@@ -1,6 +1,8 @@
 import 'package:dh_dialog/dh_dialog.dart';
 import 'package:dh_dialog/src/action_button.dart';
 import 'package:flutter/material.dart';
+
+import '../item_builder.dart';
 import '../res/colors.dart';
 import '../res/styles.dart';
 import '../scroll_behavior.dart';
@@ -11,23 +13,29 @@ import 'base_dialog.dart';
 ///@since 2020/12/9
 ///@describe:
 
+enum DividerType { horizontal, vertical }
+
+typedef ListItemBuilder<T> = Widget Function(
+    BuildContext context, T item, {BorderRadius borderRadius});
+
+typedef DividerBuilder = Widget Function(
+    BuildContext context, DividerType type);
+
 typedef OnItemClickListener<T> = void Function(T data, int position);
 
 /// List对话框条目模型
-class DialogListItem<T> {
-  final String text;
-  final TextStyle textStyle;
-  final T data;
+class DialogListItem<W, D> {
+  final W widget;
+  final D data;
 
-  DialogListItem({
-    @required this.text,
-    this.textStyle,
+  DialogListItem(
+    this.widget, {
     this.data,
   });
 }
 
 /// List对话框
-class DHListDialog<T> extends StatelessWidget {
+class DHListDialog extends StatelessWidget {
   /// 标题控件
   final Widget title;
 
@@ -46,15 +54,19 @@ class DHListDialog<T> extends StatelessWidget {
   /// 标题水平对齐方式
   final TextAlign titleAlign;
 
-  final List<DialogListItem<T>> datas;
+  final List<DialogListItem> datas;
 
   /// 对话框有效部分背景颜色
   final Color backgroundColor;
 
-  /// 分割线颜色，会作用在下面两部分
-  /// 1.内容[content]部分和按钮[positiveAction] [negativeAction]间的分割线
-  /// 2.多个按钮键的分割线
+  /// 分割线颜色，可能作用在以下部分
+  /// 1.listItem 分割线
+  /// 2.positiveAction 和 negativeAction分割线
+  /// 3.listView和action 分割线
   final Color dividerColor;
+
+  /// listItem 分割线，会覆盖[dividerColor]设置
+  final IndexedWidgetBuilder itemDividerBuilder;
 
   /// 肯定按钮文本
   final String positiveText;
@@ -85,22 +97,30 @@ class DHListDialog<T> extends StatelessWidget {
   /// 按钮高度设置
   final double actionHeight;
 
+  /// item 水平填充
   final EdgeInsetsGeometry itemPadding;
-  
+
+  /// item 水平对齐方式
   final AlignmentGeometry itemAlignment;
+
+  final ListItemBuilder itemBuilder;
 
   /// 对话框的边距
   final EdgeInsetsGeometry dialogMargin;
 
   /// 对话框对齐方式
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry dialogAlignment;
 
   final double elevation;
 
   /// 对话框圆角
   final double circleRadius;
 
-  final OnItemClickListener<T> itemClickListener;
+  final OnItemClickListener itemClickListener;
+
+  /// action按钮间分割线，也包括listView 和 Action分割线
+  /// 会覆盖[dividerColor]设置
+  final DividerBuilder actionDividerBuilder;
 
   DHListDialog({
     Key key,
@@ -112,6 +132,8 @@ class DHListDialog<T> extends StatelessWidget {
     @required this.datas,
     this.itemPadding = DialogStyle.listItemPadding,
     this.itemAlignment = Alignment.center,
+    this.itemDividerBuilder,
+    this.itemBuilder,
     this.positiveText,
     this.positiveTextStyle,
     this.positiveTap,
@@ -126,10 +148,11 @@ class DHListDialog<T> extends StatelessWidget {
     this.circleRadius = 20.0,
     this.elevation,
     this.dividerColor = DHColors.color_000000_15,
-    this.alignment = Alignment.bottomCenter,
+    this.actionDividerBuilder,
+    this.dialogAlignment = Alignment.bottomCenter,
     this.itemClickListener,
   })  : assert(datas != null),
-        assert(alignment != null),
+        assert(dialogAlignment != null),
         assert(itemPadding != null),
         super(key: key);
 
@@ -157,42 +180,33 @@ class DHListDialog<T> extends StatelessWidget {
           child: ListView.separated(
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final item = datas[index];
-              Widget itemWidget;
-              if (itemClickListener == null) {
-                itemWidget = Container(
-                  alignment: itemAlignment,
-                  padding: itemPadding,
-                  child: Text(
-                    item.text,
-                    style: item.textStyle,
-                  ),
-                );
-              } else {
-                // 无标题第一个item 设置上部分圆角
-                BorderRadius borderRadius;
-                if (index == 0 && titleWidget == null) {
-                  borderRadius = BorderRadius.vertical(top: radius);
-                } else if (index == datas.length - 1 &&
-                    (!hasNegative && !hasPositive)) {
-                  borderRadius = BorderRadius.vertical(bottom: radius);
-                }
-                itemWidget = ActionButton(
-                  customBorder: borderRadius != null
-                      ? RoundedRectangleBorder(borderRadius: borderRadius)
-                      : null,
-                  innerPadding: itemPadding,
-                  text: item.text,
-                  textStyle: item.textStyle,
-                  alignment: itemAlignment,
-                  onTap: () => itemClickListener?.call(item.data, index),
-                );
+              final DialogListItem item = datas[index];
+              // 无标题第一个item 设置上部分圆角
+              BorderRadius borderRadius;
+              if (index == 0 && titleWidget == null) {
+                borderRadius = BorderRadius.vertical(top: radius);
+              } else if (index == datas.length - 1 &&
+                  (!hasNegative && !hasPositive)) {
+                borderRadius = BorderRadius.vertical(bottom: radius);
               }
-              return itemWidget;
+
+              GestureTapCallback onTap;
+              if (itemClickListener != null) {
+                onTap = () => itemClickListener.call(item.data, index);
+              }
+
+              return itemBuilder?.call(context, item,
+                      borderRadius: borderRadius) ??
+                  ItemTextBuilder(
+                    widget: item.widget,
+                    alignment: itemAlignment,
+                    padding: itemPadding,
+                    borderRadius: borderRadius,
+                    onTap: onTap,
+                  );
             },
-            separatorBuilder: dividerColor == null
-                ? null
-                : (BuildContext context, int index) => Container(
+            separatorBuilder: itemDividerBuilder ??
+                (BuildContext context, int index) => Container(
                       color: dividerColor,
                       height: 1,
                     ),
@@ -215,8 +229,10 @@ class DHListDialog<T> extends StatelessWidget {
     }
 
     // 添加分割线
-    if (hasPositive && hasNegative)
-      actions.add(Container(color: dividerColor, width: 1));
+    if (hasPositive && hasNegative) {
+      actions.add(actionDividerBuilder?.call(context, DividerType.vertical) ??
+          Container(color: dividerColor, width: 1));
+    }
 
     if (hasPositive) {
       actions.add(Expanded(
@@ -245,10 +261,12 @@ class DHListDialog<T> extends StatelessWidget {
     // 添加分割线
     if ((titleWidget != null || contentWidget != null) &&
         actionWidget != null) {
-      dividerWidget = Container(
-        color: dividerColor,
-        height: 1,
-      );
+      dividerWidget =
+          actionDividerBuilder?.call(context, DividerType.horizontal) ??
+              Container(
+                color: dividerColor,
+                height: 1,
+              );
     }
 
     return DHDialog(
@@ -263,18 +281,7 @@ class DHListDialog<T> extends StatelessWidget {
       elevation: elevation,
       dialogMargin: dialogMargin,
       divider: dividerWidget,
-      alignment: alignment,
+      dialogAlignment: dialogAlignment,
     );
   }
 }
-
-// class DialogItemBuilder extends StatelessWidget{
-//
-//   final
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//   }
-//
-// }
