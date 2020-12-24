@@ -198,7 +198,7 @@ class DHAlertDialog extends StatelessWidget {
     // 添加Action
     if (actions.isNotEmpty) {
       actionWidget = Container(
-          height: actionHeight ?? DialogStyle.defaultActionHeight,
+          height: actionHeight ?? DialogStyle.actionHeight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: actions,

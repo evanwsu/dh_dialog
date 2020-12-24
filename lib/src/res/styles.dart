@@ -4,8 +4,8 @@ import 'package:flutter/painting.dart';
 class DialogStyle{
   DialogStyle._();
 
-  static const double defaultActionHeight = 49.0;
-
+  static const double actionHeight = 49.0;
+  static const double itemHeight = 48.0;
 
   /// 对话框标题文本样式
   static const TextStyle titleStyle = TextStyle(
@@ -32,9 +32,12 @@ class DialogStyle{
   );
 
   static const EdgeInsetsGeometry listItemPadding = EdgeInsets.symmetric(
-    vertical: 18, horizontal: 24
+    vertical: 17, horizontal: 24
+  );
+
+  static const EdgeInsetsGeometry listItemHorizontal = EdgeInsets.symmetric(
+      horizontal: 24
   );
 
   static const EdgeInsetsGeometry dialogMargin = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
-
 }

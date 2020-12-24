@@ -38,6 +38,9 @@ class ActionButton extends StatelessWidget {
   /// 按钮对齐方式
   final AlignmentGeometry alignment;
 
+  /// 按钮子控件 设置后text属性失效
+  final Widget child;
+
   ActionButton({
     this.width,
     this.height,
@@ -50,16 +53,15 @@ class ActionButton extends StatelessWidget {
     this.textStyle,
     this.customBorder,
     this.innerPadding,
+    this.child,
     this.alignment = Alignment.center,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget child = Text(
+    Widget child = this.child ?? Text(
       text ?? "",
       style: textStyle,
-      maxLines: 1,
-      overflow: TextOverflow.clip,
     );
 
     if (innerPadding != null) {

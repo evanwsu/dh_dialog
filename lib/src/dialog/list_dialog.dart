@@ -1,7 +1,6 @@
-import 'package:dh_dialog/dh_dialog.dart';
-import 'package:dh_dialog/src/action_button.dart';
 import 'package:flutter/material.dart';
 
+import '../action_button.dart';
 import '../item_builder.dart';
 import '../res/colors.dart';
 import '../res/styles.dart';
@@ -16,12 +15,20 @@ import 'base_dialog.dart';
 enum DividerType { horizontal, vertical }
 
 typedef ListItemBuilder<T> = Widget Function(
-    BuildContext context, T item, {BorderRadius borderRadius});
+  BuildContext context,
+  T item, {
+  BorderRadius borderRadius,
+  EdgeInsetsGeometry padding,
+  double height,
+  AlignmentGeometry alignment,
+  GestureTapCallback onTap,
+});
 
 typedef DividerBuilder = Widget Function(
     BuildContext context, DividerType type);
 
-typedef OnItemClickListener<T> = void Function(T data, int position);
+typedef OnItemClickListener<T> = void Function(
+    T data, int position, BuildContext context);
 
 /// List对话框条目模型
 class DialogListItem<W, D> {
@@ -60,9 +67,9 @@ class DHListDialog extends StatelessWidget {
   final Color backgroundColor;
 
   /// 分割线颜色，可能作用在以下部分
-  /// 1.listItem 分割线
-  /// 2.positiveAction 和 negativeAction分割线
-  /// 3.listView和action 分割线
+  /// 1.listItem 分割线(未设置[itemDividerBuilder])
+  /// 2.positiveAction 和 negativeAction分割线 (未设置[actionDividerBuilder])
+  /// 3.listView和action 分割线(未设置[actionDividerBuilder])
   final Color dividerColor;
 
   /// listItem 分割线，会覆盖[dividerColor]设置
@@ -100,6 +107,9 @@ class DHListDialog extends StatelessWidget {
   /// item 水平填充
   final EdgeInsetsGeometry itemPadding;
 
+  /// item 高度
+  final double itemHeight;
+
   /// item 水平对齐方式
   final AlignmentGeometry itemAlignment;
 
@@ -131,6 +141,7 @@ class DHListDialog extends StatelessWidget {
     this.titleAlign = TextAlign.center,
     @required this.datas,
     this.itemPadding = DialogStyle.listItemPadding,
+    this.itemHeight,
     this.itemAlignment = Alignment.center,
     this.itemDividerBuilder,
     this.itemBuilder,
@@ -153,8 +164,9 @@ class DHListDialog extends StatelessWidget {
     this.itemClickListener,
   })  : assert(datas != null),
         assert(dialogAlignment != null),
-        assert(itemPadding != null),
+        assert(itemPadding != null || itemHeight != null),
         super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +184,6 @@ class DHListDialog extends StatelessWidget {
     }
 
     final radius = Radius.circular(circleRadius);
-
     // content
     if (datas != null && datas.isNotEmpty) {
       contentWidget = ScrollConfiguration(
@@ -180,7 +191,6 @@ class DHListDialog extends StatelessWidget {
           child: ListView.separated(
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final DialogListItem item = datas[index];
               // 无标题第一个item 设置上部分圆角
               BorderRadius borderRadius;
               if (index == 0 && titleWidget == null) {
@@ -189,21 +199,7 @@ class DHListDialog extends StatelessWidget {
                   (!hasNegative && !hasPositive)) {
                 borderRadius = BorderRadius.vertical(bottom: radius);
               }
-
-              GestureTapCallback onTap;
-              if (itemClickListener != null) {
-                onTap = () => itemClickListener.call(item.data, index);
-              }
-
-              return itemBuilder?.call(context, item,
-                      borderRadius: borderRadius) ??
-                  ItemTextBuilder(
-                    widget: item.widget,
-                    alignment: itemAlignment,
-                    padding: itemPadding,
-                    borderRadius: borderRadius,
-                    onTap: onTap,
-                  );
+              return buildItem(context, index, borderRadius);
             },
             separatorBuilder: itemDividerBuilder ??
                 (BuildContext context, int index) => Container(
@@ -251,7 +247,7 @@ class DHListDialog extends StatelessWidget {
     // 添加Action
     if (actions.isNotEmpty) {
       actionWidget = Container(
-          height: actionHeight ?? DialogStyle.defaultActionHeight,
+          height: actionHeight ?? DialogStyle.actionHeight,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: actions,
@@ -284,4 +280,40 @@ class DHListDialog extends StatelessWidget {
       dialogAlignment: dialogAlignment,
     );
   }
+
+  Widget buildItem(
+    BuildContext context,
+    int index,
+    BorderRadius borderRadius,
+  ) {
+    final DialogListItem item = datas[index];
+    GestureTapCallback onTap;
+    if (itemClickListener != null) {
+      onTap = () => itemClickListener.call(item.data, index, context);
+    }
+
+    Widget child = itemBuilder?.call(
+      context,
+      item,
+      borderRadius: borderRadius,
+      padding: itemPadding,
+      height: itemHeight,
+      alignment: itemAlignment,
+      onTap: onTap,
+    );
+
+    if (child == null && item.widget is TextItem) {
+      child = ItemTextBuilder(
+        data: item.widget,
+        alignment: itemAlignment,
+        padding: itemPadding,
+        height: itemHeight,
+        borderRadius: borderRadius,
+        onTap: onTap,
+      );
+    }
+    return child;
+  }
+
+  bool get hasTitle => title != null || isNotEmpty(titleText);
 }

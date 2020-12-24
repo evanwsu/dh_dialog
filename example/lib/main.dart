@@ -45,6 +45,84 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    List<DialogListItem> weeks = <DialogListItem>[
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期天"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "0"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期一"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "1"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期二"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "2"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期三"),
+              textStyle: Selected.normal(
+                  normal: TextStyle(color: Colors.black, fontSize: 12),
+                  active: TextStyle(color: Colors.red, fontSize: 14)),
+              image: Selected.normal(
+                  normal:
+                  '$imagePathPrefix/check_nor.png',
+                  active:
+                  '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "3"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期四"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "4"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期五"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "5"),
+      DialogListItem<ChoiceItem, String>(
+          ChoiceItem(
+              imgWidth: 22,
+              imgHeight: 22,
+              text: Selected.all("星期六"),
+              image: Selected.normal(
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
+              selected: false),
+          data: "6"),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -96,38 +174,83 @@ class _MyHomePageState extends State<MyHomePage> {
                           titleText: "班级",
                           titleAlign: TextAlign.center,
                           datas: [
-                            DialogListItem<TextItem, String>(TextItem(text: "高一(1)班"),  data: "1"),
-                            DialogListItem<TextItem, String>(TextItem(text: "高一(2)班"), data: "2"),
-                            DialogListItem<TextItem, String>(TextItem(text: "高一(3)班"), data: "3"),
+                            DialogListItem<TextItem, String>(
+                                TextItem(text: "高一(1)班"),
+                                data: "1"),
+                            DialogListItem<TextItem, String>(
+                                TextItem(text: "高一(2)班"),
+                                data: "2"),
+                            DialogListItem<TextItem, String>(
+                                TextItem(text: "高一(3)班"),
+                                data: "3"),
                           ],
                           itemAlignment: Alignment.centerLeft,
                           // hasNegative: false,
                           // hasPositive: false,
-                          itemClickListener: (data, position){
+                          itemClickListener: (data, position, context) {
                             print('data: $data, position: $position');
                             Navigator.of(context).pop();
                           },
                           dividerColor: Colors.yellow,
-                          itemDividerBuilder: (context, index){
+                          itemDividerBuilder: (context, index) {
                             return Container(
                               color: Colors.red,
                               height: 1.0,
                             );
                           },
-                          actionDividerBuilder: (context, type){
+                          actionDividerBuilder: (context, type) {
                             return Container(
                               color: Colors.purple,
-                              height: type == DividerType.horizontal ? 1.0 : null,
-                              width:  type == DividerType.vertical ? 1.0 : null,
+                              height:
+                                  type == DividerType.horizontal ? 1.0 : null,
+                              width: type == DividerType.vertical ? 1.0 : null,
                             );
                           },
                         );
                       });
                 },
-                child: Text("List Dialog"))
+                child: Text("List Dialog")),
+            FlatButton(
+              onPressed: () {
+                showDHDialog(
+                    entryAnimation: EntryAnimation.slideBottom,
+                    context: context,
+                    builder: (context) {
+                      return DHChoiceDialog(
+                        titleText: "重复",
+                        itemAlignment: Alignment.centerLeft,
+                        datas: weeks,
+                        multiChose: false,
+                      );
+                    });
+              },
+              child: Text("单选"),
+            ),
+            FlatButton(
+              onPressed: () {
+                showDHDialog(
+                    entryAnimation: EntryAnimation.slideBottom,
+                    context: context,
+                    builder: (context) {
+                      return DHChoiceDialog(
+                        titleText: "重复",
+                        itemAlignment: Alignment.centerLeft,
+                        datas: [
+                          DialogListItem<BaseChoiceItem, String>(
+                              BaseChoiceItem(false),
+                              data: "1"),
+                        ],
+                        multiChose: true,
+                      );
+                    });
+              },
+              child: Text("多选对话框"),
+            )
           ],
         ),
       ),
     );
   }
 }
+
+const String imagePathPrefix = "assets/images";
