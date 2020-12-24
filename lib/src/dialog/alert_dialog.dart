@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../action_button.dart';
 import '../res/colors.dart';
 import '../res/styles.dart';
@@ -24,6 +23,11 @@ import 'base_dialog.dart';
 ///    );
 ///   }
 /// );
+
+enum DividerType { horizontal, vertical }
+
+typedef DividerBuilder = Widget Function(
+    BuildContext context, DividerType type);
 
 class DHAlertDialog extends StatelessWidget {
   /// 标题控件
@@ -94,9 +98,10 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框有效部分背景颜色
   final Color backgroundColor;
 
-  /// 分割线颜色，会作用在下面两部分
-  /// 1.内容[content]部分和按钮[positiveAction] [negativeAction]间的分割线
-  /// 2.多个按钮键的分割线
+  /// 分割线颜色，可能作用在以下部分
+  /// 1.listItem 分割线(未设置[itemDividerBuilder])
+  /// 2.positiveAction 和 negativeAction分割线 (未设置[actionDividerBuilder])
+  /// 3.listView和action 分割线(未设置[actionDividerBuilder])
   final Color dividerColor;
 
   final double elevation;
@@ -110,34 +115,40 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
-  DHAlertDialog(
-      {Key key,
-      this.title,
-      this.titleText,
-      this.titlePadding,
-      this.titleTextStyle,
-      this.titleAlign = TextAlign.center,
-      this.content,
-      this.contentText,
-      this.contentPadding,
-      this.contentTextStyle,
-      this.contentAlign = TextAlign.center,
-      this.positiveText,
-      this.positiveTextStyle,
-      this.positiveTap,
-      this.negativeText,
-      this.negativeTextStyle,
-      this.negativeTap,
-      this.circleRadius = 20.0,
-      this.backgroundColor,
-      this.elevation,
-      this.dialogMargin,
-      this.dividerColor = DHColors.color_000000_15,
-      this.dialogAlignment = Alignment.center,
-      this.actionHeight,
-      this.hasNegative = true,
-      this.hasPositive = true})
-      : assert(dialogAlignment != null),
+  /// action按钮间分割线，也包括listView 和 Action分割线
+  /// 会覆盖[dividerColor]设置
+  final DividerBuilder actionDividerBuilder;
+
+
+  DHAlertDialog({
+    Key key,
+    this.title,
+    this.titleText,
+    this.titlePadding,
+    this.titleTextStyle,
+    this.titleAlign = TextAlign.center,
+    this.content,
+    this.contentText,
+    this.contentPadding,
+    this.contentTextStyle,
+    this.contentAlign = TextAlign.center,
+    this.positiveText,
+    this.positiveTextStyle,
+    this.positiveTap,
+    this.hasPositive = true,
+    this.negativeText,
+    this.negativeTextStyle,
+    this.negativeTap,
+    this.hasNegative = true,
+    this.actionHeight,
+    this.dividerColor = DHColors.color_000000_15,
+    this.actionDividerBuilder,
+    this.backgroundColor,
+    this.circleRadius = 20.0,
+    this.elevation,
+    this.dialogMargin,
+    this.dialogAlignment = Alignment.center,
+  })  : assert(dialogAlignment != null),
         assert(titleAlign != null),
         assert(contentAlign != null),
         super(key: key);
@@ -145,7 +156,7 @@ class DHAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget titleWidget = title;
-    Widget contentWidget = content;
+    Widget contentWidget = buildContent();
     Widget dividerWidget;
     Widget actionWidget;
     List<Widget> actions = [];
@@ -156,14 +167,8 @@ class DHAlertDialog extends StatelessWidget {
         textAlign: titleAlign,
       );
     }
-    if (content == null && isNotEmpty(contentText)) {
-      contentWidget = Text(
-        contentText,
-        textAlign: contentAlign,
-      );
-    }
-    final radius = Radius.circular(circleRadius);
 
+    final radius = Radius.circular(circleRadius);
     if (hasNegative) {
       actions.add(Expanded(
           child: ActionButton(
@@ -178,8 +183,10 @@ class DHAlertDialog extends StatelessWidget {
     }
 
     // 添加分割线
-    if (hasPositive && hasNegative)
-      actions.add(Container(color: dividerColor, width: 1));
+    if (hasPositive && hasNegative) {
+      actions.add(actionDividerBuilder?.call(context, DividerType.vertical) ??
+          Container(color: dividerColor, width: 1));
+    }
 
     if (hasPositive) {
       actions.add(Expanded(
@@ -208,10 +215,12 @@ class DHAlertDialog extends StatelessWidget {
     // 添加分割线
     if ((titleWidget != null || contentWidget != null) &&
         actionWidget != null) {
-      dividerWidget = Container(
-        color: dividerColor,
-        height: 1,
-      );
+      dividerWidget =
+          actionDividerBuilder?.call(context, DividerType.horizontal) ??
+              Container(
+                color: dividerColor,
+                height: 1,
+              );
     }
 
     return DHDialog(
@@ -229,5 +238,16 @@ class DHAlertDialog extends StatelessWidget {
       divider: dividerWidget,
       dialogAlignment: dialogAlignment,
     );
+  }
+
+  Widget buildContent(){
+    Widget contentWidget = content;
+    if (content == null && isNotEmpty(contentText)) {
+      contentWidget = Text(
+        contentText,
+        textAlign: contentAlign,
+      );
+    }
+    return contentWidget;
   }
 }

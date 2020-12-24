@@ -1,11 +1,13 @@
-import 'package:dh_dialog/src/res/colors.dart';
 import 'package:flutter/painting.dart';
+
+import 'colors.dart';
 
 class DialogStyle{
   DialogStyle._();
 
   static const double actionHeight = 49.0;
   static const double itemHeight = 48.0;
+  static const double inputHeight = 40.0;
 
   /// 对话框标题文本样式
   static const TextStyle titleStyle = TextStyle(

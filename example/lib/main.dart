@@ -1,4 +1,3 @@
-// import 'package:dh_dialog/dh_dialog.dart';
 import 'package:dh_dialog/dh_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -85,10 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   normal: TextStyle(color: Colors.black, fontSize: 12),
                   active: TextStyle(color: Colors.red, fontSize: 14)),
               image: Selected.normal(
-                  normal:
-                  '$imagePathPrefix/check_nor.png',
-                  active:
-                  '$imagePathPrefix/check_sel.png'),
+                  normal: '$imagePathPrefix/check_nor.png',
+                  active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "3"),
       DialogListItem<ChoiceItem, String>(
@@ -159,6 +156,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           contentText: "jimmy",
                           positiveText: "确认",
                           negativeText: "取消",
+                          actionDividerBuilder: (context, type) {
+                            return Container(
+                              color: Colors.purple,
+                              height:
+                                  type == DividerType.horizontal ? 1.0 : null,
+                              width: type == DividerType.vertical ? 1.0 : null,
+                            );
+                          },
                         );
                       },
                       entryAnimation: EntryAnimation.fade);
@@ -235,11 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       return DHChoiceDialog(
                         titleText: "重复",
                         itemAlignment: Alignment.centerLeft,
-                        datas: [
-                          DialogListItem<BaseChoiceItem, String>(
-                              BaseChoiceItem(false),
-                              data: "1"),
-                        ],
+                        datas: weeks,
                         multiChose: true,
                       );
                     });

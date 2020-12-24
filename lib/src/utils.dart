@@ -5,5 +5,3 @@
 bool isNotEmpty(String text) => text != null && text.isNotEmpty;
 
 bool isEmpty(String text) => text == null || text.isEmpty;
-
-const String imagePathPrefix = "packages/dh_dialog/assets/images";
