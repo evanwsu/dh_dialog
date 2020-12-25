@@ -1,5 +1,6 @@
 import 'package:dh_dialog/dh_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -246,6 +247,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
               },
               child: Text("多选对话框"),
+            ),
+            FlatButton(
+              onPressed: () {
+                showDHDialog(
+                    entryAnimation: EntryAnimation.slideBottom,
+                    context: context,
+                    builder: (context) {
+                      TextEditingController editController;
+                      var getter = (controller)=> editController = controller;
+
+                      return DHInputDialog(
+                        titleText: "用户名",
+                        filled: true,
+                        style: TextStyle(color: Colors.red, fontSize: 15),
+                        borderStyle: InputBorderStyle.outline,
+                        controllerGetter: getter,
+                        keyboardType: TextInputType.number,
+                        hintText: "请输入用户名",
+                        hintStyle: TextStyle(color: Colors.yellow),
+                        suffixOnTap: (){
+                          editController.text = "";
+                        },
+                        suffix: Text("删"),
+                        positiveTap: (result){
+                          print('result: $result');
+                          Navigator.pop(context);
+                        },
+                        negativeTap: (result){
+                          print('result: $result');
+                          Navigator.pop(context);
+                        },
+                      );
+                    });
+              },
+              child: Text("InputDialog"),
             )
           ],
         ),

@@ -7,7 +7,6 @@ class DialogStyle{
 
   static const double actionHeight = 49.0;
   static const double itemHeight = 48.0;
-  static const double inputHeight = 40.0;
 
   /// 对话框标题文本样式
   static const TextStyle titleStyle = TextStyle(
@@ -42,4 +41,25 @@ class DialogStyle{
   );
 
   static const EdgeInsetsGeometry dialogMargin = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+
+  static const TextStyle inputTextStyle = TextStyle(
+      color: DHColors.color_333333,
+      fontSize: 14
+  );
+
+
+  /// input dialog 输入框内容填充
+  static const EdgeInsetsGeometry inputPadding = EdgeInsets.fromLTRB(10.0, 10.0, 6.0, 10.0);
+
+  /// input dialog [borderStyle]是InputBorderStyle.outline
+  /// 边框圆角属性[borderRadius]
+  static const BorderRadius outlineBorderRadius = BorderRadius.all(Radius.circular(6.0));
+
+  /// input dialog [borderStyle]是InputBorderStyle.underline
+  /// 边框圆角属性[borderRadius]
+  static const BorderRadius underlineBorderRadius = BorderRadius.vertical(top: Radius.circular(6.0));
+
+  static const BorderSide inputBorderSide = BorderSide(color: DHColors.color_000000_15);
+
+  static const Size suffixSize = Size(40, 40);
 }
