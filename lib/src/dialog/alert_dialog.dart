@@ -11,6 +11,10 @@ import 'base_dialog.dart';
 
 /// 标准提示框，用于提示一些信息
 /// 可以设置标题和内容，支持取消和确认按键设置，也可设置其中一个
+/// action 按钮
+/// negative 左侧取消按钮
+/// positive 右侧确认按钮
+///
 /// showDHDialog(
 ///    context: context,
 ///    builder: (BuildContext context){

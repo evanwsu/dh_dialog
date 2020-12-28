@@ -11,7 +11,7 @@ Future<T> showDHDialog<T>({
   @required BuildContext context,
   WidgetBuilder builder,
   RouteTransitionsBuilder transitionBuilder,
-  EntryAnimation entryAnimation,
+  EntryAnimation entryAnimation = EntryAnimation.none,
   Duration transitionDuration,
   Color barrierColor,
   bool barrierDismissible = true,
@@ -95,3 +95,7 @@ Widget _buildDialogTransition(
 /// fade 以渐现方式显示对话框
 /// slide 以滑动动画方式显示对话框
 enum EntryAnimation { slideLeft, slideTop, slideRight, slideBottom, fade, none }
+
+/// 隐藏dialog
+void dismissDHDialog<T extends Object>(BuildContext context, [T result]) =>
+    Navigator.pop(context, result);
