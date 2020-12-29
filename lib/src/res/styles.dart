@@ -49,7 +49,7 @@ class DialogStyle{
 
 
   /// input dialog 输入框内容填充
-  static const EdgeInsetsGeometry inputPadding = EdgeInsets.fromLTRB(10.0, 10.0, 6.0, 10.0);
+  static const EdgeInsetsGeometry inputPadding = EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0);
 
   /// input dialog [borderStyle]是InputBorderStyle.outline
   /// 边框圆角属性[borderRadius]

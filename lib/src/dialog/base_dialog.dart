@@ -4,26 +4,39 @@ import '../res/styles.dart';
 ///@author Evan
 ///@since 2020-03-13
 ///@describe:
-///
+/// 对话框按照下面顺序排列
+/// 1. title  标题
+/// 2. content 内容
+/// 3. divider 内容和按钮分割线
+/// 4. action 按钮
 
 /// 对话框控件
 class DHDialog extends StatelessWidget {
+  /// 标题控件
   final Widget title;
+  /// 标题控件的填充大小
   final EdgeInsetsGeometry titlePadding;
+  /// 标题文本样式
   final TextStyle titleTextStyle;
+  /// 内容控件
   final Widget content;
+  /// 内容控件的填充大小
   final EdgeInsetsGeometry contentPadding;
+  /// 内容文本样式
   final TextStyle contentTextStyle;
+  /// 按钮控件
   final Widget action;
+  /// 对话框边框形状
   final ShapeBorder shape;
+  /// 对话框背景颜色
   final Color backgroundColor;
+  /// 对话框阴影Z轴高度
   final double elevation;
-
-  /// 对话框padding
+  /// 对话框边距
   final EdgeInsetsGeometry dialogMargin;
-
   /// actions  和 content之间的分割线
   final Widget divider;
+  /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
   DHDialog(
@@ -97,19 +110,23 @@ class DHDialog extends StatelessWidget {
 /// 通用的dialog
 /// [DHDialog] 基于此实现
 class BaseDialog extends StatelessWidget {
-  /// 圆角边框
+  /// 默认圆角边框
   static const RoundedRectangleBorder _defaultDialogShape =
       RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(6.0)));
   static const double _defaultElevation = 24.0;
 
+  /// 对话框边框形状
   final ShapeBorder shape;
+  /// 对话框背景颜色
   final Color backgroundColor;
+  /// 对话框阴影Z轴高度
   final double elevation;
-
-  /// 对话框padding
+  /// 对话框边距
   final EdgeInsetsGeometry dialogMargin;
+  /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
+  /// 子控件
   final Widget child;
 
   BaseDialog(

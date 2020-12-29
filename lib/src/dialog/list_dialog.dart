@@ -6,6 +6,7 @@ import '../res/styles.dart';
 import '../scroll_behavior.dart';
 import '../utils.dart';
 import 'alert_dialog.dart';
+
 export 'alert_dialog.dart' show DividerBuilder, DividerType;
 
 ///@author Evan
@@ -38,6 +39,7 @@ class DialogListItem<W, D> {
 
 /// List对话框
 class DHListDialog extends DHAlertDialog {
+  /// 列表数据结构
   final List<DialogListItem> datas;
 
   /// listItem 分割线，会覆盖[dividerColor]设置
@@ -52,8 +54,10 @@ class DHListDialog extends DHAlertDialog {
   /// item 水平对齐方式
   final AlignmentGeometry itemAlignment;
 
+  /// item构造器
   final ListItemBuilder itemBuilder;
 
+  /// item点击事件监听器
   final OnItemClickListener itemClickListener;
 
   DHListDialog({
@@ -120,28 +124,32 @@ class DHListDialog extends DHAlertDialog {
     Widget contentWidget;
     if (datas != null && datas.isNotEmpty) {
       final radius = Radius.circular(circleRadius);
+      IndexedWidgetBuilder itemBuilder = (BuildContext context, int index) {
+        // 无标题第一个item 设置上部分圆角
+        BorderRadius borderRadius;
+        if (index == 0 && !hasTitle) {
+          borderRadius = BorderRadius.vertical(top: radius);
+        } else if (index == datas.length - 1 &&
+            (!hasNegative && !hasPositive)) {
+          borderRadius = BorderRadius.vertical(bottom: radius);
+        }
+        return buildItem(context, index, borderRadius);
+      };
+
       contentWidget = ScrollConfiguration(
           behavior: NoneOverScrollBehavior(),
-          child: ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              // 无标题第一个item 设置上部分圆角
-              BorderRadius borderRadius;
-              if (index == 0 && !hasTitle) {
-                borderRadius = BorderRadius.vertical(top: radius);
-              } else if (index == datas.length - 1 &&
-                  (!hasNegative && !hasPositive)) {
-                borderRadius = BorderRadius.vertical(bottom: radius);
-              }
-              return buildItem(context, index, borderRadius);
-            },
-            separatorBuilder: itemDividerBuilder ??
-                (BuildContext context, int index) => Container(
-                      color: dividerColor,
-                      height: 1,
-                    ),
-            itemCount: datas.length,
-          ));
+          child: itemDividerBuilder != null
+              ? ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: itemBuilder,
+                  separatorBuilder: itemDividerBuilder,
+                  itemCount: datas.length,
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: itemBuilder,
+                  itemCount: datas.length,
+                ));
     }
     return contentWidget;
   }

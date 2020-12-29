@@ -9,7 +9,7 @@ const normalDuration = Duration(milliseconds: 150);
 
 Future<T> showDHDialog<T>({
   @required BuildContext context,
-  WidgetBuilder builder,
+  @required WidgetBuilder builder,
   RouteTransitionsBuilder transitionBuilder,
   EntryAnimation entryAnimation = EntryAnimation.none,
   Duration transitionDuration,

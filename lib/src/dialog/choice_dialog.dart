@@ -8,10 +8,14 @@ import 'list_dialog.dart';
 ///@author Evan
 ///@since 2020/12/15
 ///@describe:
-
 /// 选择对话框
+/// 使用[showDHDialog]显示对话框
+/// [datas]元素[DialogListItem.widget]必须是BaseChoiceItem的子类
 /// [itemHeight] 设置选择条目高度, 通常设置高度后, 不用设置垂直方向padding
 /// [itemPadding] 条目填充边距, 在[itemHeight]的限制下作用
+/// [itemAlignment] 条目对齐方式，默认居中
+/// [itemDividerBuilder] 条目分割线构造器
+/// [itemBuilder] 条目布局构造器
 ///
 ///
 class DHChoiceDialog extends DHListDialog {

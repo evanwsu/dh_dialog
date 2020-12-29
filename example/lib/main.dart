@@ -13,19 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -135,41 +123,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       context: context,
                       builder: (context) {
                         return DHAlertDialog(
-                          titleText: "确定要删除设备吗",
-                          contentText: "删除设备后，需要重新配网才能控制设备",
+                          titleText: "Title",
+                          contentText: "Content",
                           hasPositive: true,
                           hasNegative: false,
-                          positiveTap: () {
-                            Navigator.pop(context);
-                          },
-                          negativeTap: () {},
+                          positiveTap: () => dismissDHDialog(context),
                         );
                       },
                       entryAnimation: EntryAnimation.slideBottom);
                 },
-                child: Text("Title Content Action")),
-            FlatButton(
-                onPressed: () {
-                  showDHDialog(
-                      context: context,
-                      builder: (context) {
-                        return DHAlertDialog(
-                          contentText: "jimmy",
-                          positiveText: "确认",
-                          negativeText: "取消",
-                          actionDividerBuilder: (context, type) {
-                            return Container(
-                              color: Colors.purple,
-                              height:
-                                  type == DividerType.horizontal ? 1.0 : null,
-                              width: type == DividerType.vertical ? 1.0 : null,
-                            );
-                          },
-                        );
-                      },
-                      entryAnimation: EntryAnimation.fade);
-                },
-                child: Text("Title Content Action")),
+                child: Text("AlertDialog")),
             FlatButton(
                 onPressed: () {
                   showDHDialog(
@@ -191,19 +154,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                 data: "3"),
                           ],
                           itemAlignment: Alignment.centerLeft,
-                          // hasNegative: false,
-                          // hasPositive: false,
                           itemClickListener: (data, position, context) {
                             print('data: $data, position: $position');
-                            Navigator.of(context).pop();
+                            dismissDHDialog(context);
                           },
                           dividerColor: Colors.yellow,
-                          itemDividerBuilder: (context, index) {
-                            return Container(
+                          itemDividerBuilder: (context, index) => Container(
                               color: Colors.red,
                               height: 1.0,
-                            );
-                          },
+                            ),
                           actionDividerBuilder: (context, type) {
                             return Container(
                               color: Colors.purple,
@@ -215,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       });
                 },
-                child: Text("List Dialog")),
+                child: Text("ListDialog")),
             FlatButton(
               onPressed: () {
                 showDHDialog(
@@ -230,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                     });
               },
-              child: Text("单选"),
+              child: Text("SingleChoiceDialog"),
             ),
             FlatButton(
               onPressed: () {
@@ -243,10 +202,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,
                         multiChose: true,
+                        // itemDividerBuilder: (context, index) => Container(
+                        //   color: ,
+                        // ),
                       );
                     });
               },
-              child: Text("多选对话框"),
+              child: Text("MultipleChoiceDialog"),
             ),
             FlatButton(
               onPressed: () {
@@ -260,23 +222,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       return DHInputDialog(
                         titleText: "用户名",
                         filled: true,
-                        style: TextStyle(color: Colors.red, fontSize: 15),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                         borderStyle: InputBorderStyle.outline,
                         controllerGetter: getter,
                         keyboardType: TextInputType.number,
                         hintText: "请输入用户名",
-                        hintStyle: TextStyle(color: Colors.yellow),
-                        suffixOnTap: (){
-                          editController.text = "";
-                        },
-                        suffix: Text("删"),
+                        suffixOnTap: ()=> editController.text = "",
+                        suffix: Text("删除", style: TextStyle(color: Colors.pink, fontSize: 12),),
                         positiveTap: (result){
-                          print('result: $result');
-                          Navigator.pop(context);
+                          dismissDHDialog(context);
                         },
                         negativeTap: (result){
-                          print('result: $result');
-                          Navigator.pop(context);
+                          dismissDHDialog(context);
                         },
                       );
                     });
