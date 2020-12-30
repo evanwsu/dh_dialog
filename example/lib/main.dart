@@ -33,76 +33,76 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    List<DialogListItem> weeks = <DialogListItem>[
-      DialogListItem<ChoiceItem, String>(
+    List<DialogListItem> weeks = <DialogListItem<ChoiceItem, String>>[
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期天"),
-              image: Selected.normal(
+              text: Selector.all("星期天"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "0"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期一"),
-              image: Selected.normal(
+              text: Selector.all("星期一"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "1"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期二"),
-              image: Selected.normal(
+              text: Selector.all("星期二"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "2"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期三"),
-              textStyle: Selected.normal(
+              text: Selector.all("星期三"),
+              textStyle: Selector.normal(
                   normal: TextStyle(color: Colors.black, fontSize: 12),
                   active: TextStyle(color: Colors.red, fontSize: 14)),
-              image: Selected.normal(
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "3"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期四"),
-              image: Selected.normal(
+              text: Selector.all("星期四"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "4"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期五"),
-              image: Selected.normal(
+              text: Selector.all("星期五"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
           data: "5"),
-      DialogListItem<ChoiceItem, String>(
+      DialogListItem(
           ChoiceItem(
               imgWidth: 22,
               imgHeight: 22,
-              text: Selected.all("星期六"),
-              image: Selected.normal(
+              text: Selector.all("星期六"),
+              image: Selector.normal(
                   normal: '$imagePathPrefix/check_nor.png',
                   active: '$imagePathPrefix/check_sel.png'),
               selected: false),
@@ -143,13 +143,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           titleText: "班级",
                           titleAlign: TextAlign.center,
                           datas: [
-                            DialogListItem<TextItem, String>(
+                            DialogListItem(
                                 TextItem(text: "高一(1)班"),
                                 data: "1"),
-                            DialogListItem<TextItem, String>(
+                            DialogListItem(
                                 TextItem(text: "高一(2)班"),
                                 data: "2"),
-                            DialogListItem<TextItem, String>(
+                            DialogListItem(
                                 TextItem(text: "高一(3)班"),
                                 data: "3"),
                           ],
@@ -181,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     entryAnimation: EntryAnimation.slideBottom,
                     context: context,
                     builder: (context) {
-                      return DHChoiceDialog(
+                      return DHChoiceDialog<ChoiceItem, String>(
                         titleText: "重复",
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     entryAnimation: EntryAnimation.slideBottom,
                     context: context,
                     builder: (context) {
-                      return DHChoiceDialog(
+                      return DHChoiceDialog<ChoiceItem, String>(
                         titleText: "重复",
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,

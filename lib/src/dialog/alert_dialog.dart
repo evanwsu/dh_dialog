@@ -119,6 +119,9 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
+  /// 对话框最大宽度
+  final double dialogWidth;
+
   /// action按钮间分割线，也包括listView 和 Action分割线
   /// 会覆盖[dividerColor]设置
   final DividerBuilder actionDividerBuilder;
@@ -152,6 +155,7 @@ class DHAlertDialog extends StatelessWidget {
     this.elevation,
     this.dialogMargin,
     this.dialogAlignment = Alignment.center,
+    this.dialogWidth
   })  : assert(dialogAlignment != null),
         assert(titleAlign != null),
         assert(contentAlign != null),
@@ -241,6 +245,7 @@ class DHAlertDialog extends StatelessWidget {
       dialogMargin: dialogMargin,
       divider: dividerWidget,
       dialogAlignment: dialogAlignment,
+      dialogWidth: dialogWidth,
     );
   }
 

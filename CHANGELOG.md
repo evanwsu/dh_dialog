@@ -1,3 +1,9 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.2] - 2020.12.30 
 
-* TODO: Describe initial release.
+- update DHChoiceDialog 
+
+
+
+## [0.0.1] - 2020.12.29 
+
+- Initialize the project

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../res/styles.dart';
 
 ///@author Evan
@@ -14,28 +15,43 @@ import '../res/styles.dart';
 class DHDialog extends StatelessWidget {
   /// 标题控件
   final Widget title;
+
   /// 标题控件的填充大小
   final EdgeInsetsGeometry titlePadding;
+
   /// 标题文本样式
   final TextStyle titleTextStyle;
+
   /// 内容控件
   final Widget content;
+
   /// 内容控件的填充大小
   final EdgeInsetsGeometry contentPadding;
+
   /// 内容文本样式
   final TextStyle contentTextStyle;
+
   /// 按钮控件
   final Widget action;
+
   /// 对话框边框形状
   final ShapeBorder shape;
+
   /// 对话框背景颜色
   final Color backgroundColor;
+
   /// 对话框阴影Z轴高度
   final double elevation;
+
   /// 对话框边距
   final EdgeInsetsGeometry dialogMargin;
+
+  /// 对话框宽度
+  final double dialogWidth;
+
   /// actions  和 content之间的分割线
   final Widget divider;
+
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
@@ -52,6 +68,7 @@ class DHDialog extends StatelessWidget {
       this.shape,
       this.elevation,
       this.dialogMargin,
+      this.dialogWidth,
       this.divider,
       this.dialogAlignment = Alignment.center})
       : super(key: key);
@@ -60,10 +77,11 @@ class DHDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget titleWidget;
 
-
-    if (title != null){
+    if (title != null) {
       titleWidget = Padding(
-        padding: titlePadding ?? EdgeInsets.fromLTRB(24.0, 24.0, 24.0, content == null ? 24.0 : 16.0),
+        padding: titlePadding ??
+            EdgeInsets.fromLTRB(
+                24.0, 24.0, 24.0, content == null ? 24.0 : 16.0),
         child: DefaultTextStyle(
           style: titleTextStyle ?? DialogStyle.titleStyle,
           child: title,
@@ -74,7 +92,8 @@ class DHDialog extends StatelessWidget {
     Widget contentWidget;
     if (content != null)
       contentWidget = Padding(
-        padding: contentPadding ?? EdgeInsets.fromLTRB(24.0, title == null ? 24.0 : .0, 24.0, 24.0),
+        padding: contentPadding ??
+            EdgeInsets.fromLTRB(24.0, title == null ? 24.0 : .0, 24.0, 24.0),
         child: DefaultTextStyle(
           style: contentTextStyle ?? DialogStyle.contentStyle,
           child: content,
@@ -98,12 +117,14 @@ class DHDialog extends StatelessWidget {
     }
 
     return BaseDialog(
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        dialogMargin: dialogMargin,
-        dialogAlignment: dialogAlignment,
-        shape: shape,
-        child: dialog);
+      backgroundColor: backgroundColor,
+      elevation: elevation,
+      dialogMargin: dialogMargin,
+      dialogAlignment: dialogAlignment,
+      shape: shape,
+      child: dialog,
+      dialogWidth: dialogWidth,
+    );
   }
 }
 
@@ -118,36 +139,48 @@ class BaseDialog extends StatelessWidget {
 
   /// 对话框边框形状
   final ShapeBorder shape;
+
   /// 对话框背景颜色
   final Color backgroundColor;
+
   /// 对话框阴影Z轴高度
   final double elevation;
+
   /// 对话框边距
   final EdgeInsetsGeometry dialogMargin;
+
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
+
   /// 子控件
   final Widget child;
 
-  BaseDialog(
-      {Key key,
-      this.child,
-      this.backgroundColor,
-      this.shape,
-      this.elevation,
-      this.dialogMargin,
-      this.dialogAlignment = Alignment.center})
-      : super(key: key);
+  /// 最大宽度
+  final double dialogWidth;
+
+  BaseDialog({
+    Key key,
+    this.child,
+    this.backgroundColor,
+    this.shape,
+    this.elevation,
+    this.dialogMargin,
+    this.dialogAlignment = Alignment.center,
+    this.dialogWidth,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final dialogMargin = this.dialogMargin ?? DialogStyle.dialogMargin;
     final DialogTheme dialogTheme = DialogTheme.of(context);
+    double maxWidth = this.dialogWidth;
 
-    final width = MediaQuery.of(context).size.width;
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-    final double maxWidth = isPortrait ? double.infinity : width * 0.6;
+    if (maxWidth == null) {
+      final width = MediaQuery.of(context).size.width;
+      final isPortrait =
+          MediaQuery.of(context).orientation == Orientation.portrait;
+      maxWidth = isPortrait ? double.infinity : width * 0.6;
+    }
 
     return AnimatedPadding(
       padding: MediaQuery.of(context).viewInsets + dialogMargin,

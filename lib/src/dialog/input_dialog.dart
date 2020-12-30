@@ -87,6 +87,9 @@ class DHInputDialog extends StatefulWidget {
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
+  /// 对话框宽度
+  final double dialogWidth;
+
   /// action按钮间分割线，也包括listView 和 Action分割线
   /// 会覆盖[dividerColor]设置
   final DividerBuilder actionDividerBuilder;
@@ -138,6 +141,7 @@ class DHInputDialog extends StatefulWidget {
     this.dividerColor = DHColors.color_000000_15,
     this.actionDividerBuilder,
     this.dialogAlignment = Alignment.bottomCenter,
+    this.dialogWidth,
     this.text,
     this.style,
     this.maxLines = 1,
@@ -288,6 +292,7 @@ class _DHInputDialogState extends State<DHInputDialog> {
       dividerColor: widget.dividerColor,
       actionDividerBuilder: widget.actionDividerBuilder,
       dialogAlignment: widget.dialogAlignment,
+      dialogWidth: widget.dialogWidth,
     );
   }
 }

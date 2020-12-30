@@ -9,5 +9,5 @@ export 'package:dh_dialog/src/dialog/choice_dialog.dart';
 
 export 'package:dh_dialog/src/item_builder.dart';
 
-export 'package:dh_dialog/src/selected.dart';
+export 'package:dh_dialog/src/selector.dart';
 export 'package:dh_dialog/src/show_dialog.dart';

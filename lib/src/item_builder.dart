@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import 'action_button.dart';
-import 'selected.dart';
+import 'selector.dart';
 
 ///@author Evan
 ///@since 2020/12/15
@@ -32,9 +32,9 @@ class BaseChoiceItem {
 class ChoiceItem extends BaseChoiceItem {
   double imgWidth;
   double imgHeight;
-  Selected<String> image;
-  Selected<String> text;
-  Selected<TextStyle> textStyle;
+  Selector<String> image;
+  Selector<String> text;
+  Selector<TextStyle> textStyle;
 
   ChoiceItem(
       {this.imgWidth,
@@ -48,11 +48,8 @@ class ChoiceItem extends BaseChoiceItem {
         super(selected);
 }
 
-typedef CheckTest<T> = bool Function(T data, int index);
-
-
-abstract class DialogItemBuilder<W> extends StatelessWidget {
-  final W data;
+abstract class DialogItemBuilder<T> extends StatelessWidget {
+  final T data;
   final GestureTapCallback onTap;
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry padding;
@@ -133,9 +130,9 @@ class ItemChoiceBuilder extends DialogItemBuilder<ChoiceItem> {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    String path = Selected.getSelected(data.image, data.selected);
-    String text = Selected.getSelected(data.text, data.selected);
-    TextStyle textStyle = Selected.getSelected(data.textStyle, data.selected);
+    String path = Selector.getSelected(data.image, data.selected);
+    String text = Selector.getSelected(data.text, data.selected);
+    TextStyle textStyle = Selector.getSelected(data.textStyle, data.selected);
     if(hasImage && hasText){
       child = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -28,7 +28,9 @@ typedef OnItemClickListener<T> = void Function(
 
 /// List对话框条目模型
 class DialogListItem<W, D> {
+  /// item控件模型
   final W widget;
+  /// item数据模型
   final D data;
 
   DialogListItem(
@@ -38,9 +40,9 @@ class DialogListItem<W, D> {
 }
 
 /// List对话框
-class DHListDialog extends DHAlertDialog {
+class DHListDialog<W, D> extends DHAlertDialog {
   /// 列表数据结构
-  final List<DialogListItem> datas;
+  final List<DialogListItem<W, D>> datas;
 
   /// listItem 分割线，会覆盖[dividerColor]设置
   final IndexedWidgetBuilder itemDividerBuilder;
@@ -55,10 +57,10 @@ class DHListDialog extends DHAlertDialog {
   final AlignmentGeometry itemAlignment;
 
   /// item构造器
-  final ListItemBuilder itemBuilder;
+  final ListItemBuilder<W> itemBuilder;
 
   /// item点击事件监听器
-  final OnItemClickListener itemClickListener;
+  final OnItemClickListener<D> itemClickListener;
 
   DHListDialog({
     Key key,
@@ -88,6 +90,7 @@ class DHListDialog extends DHAlertDialog {
     Color backgroundColor,
     double circleRadius = 20.0,
     double elevation,
+    double dialogWidth,
     EdgeInsetsGeometry dialogMargin,
     AlignmentGeometry dialogAlignment = Alignment.bottomCenter,
   })  : assert(datas != null),
@@ -115,6 +118,7 @@ class DHListDialog extends DHAlertDialog {
           backgroundColor: backgroundColor,
           circleRadius: circleRadius,
           elevation: elevation,
+          dialogWidth: dialogWidth,
           dialogMargin: dialogMargin,
           dialogAlignment: dialogAlignment,
         );
@@ -159,15 +163,16 @@ class DHListDialog extends DHAlertDialog {
     int index,
     BorderRadius borderRadius,
   ) {
-    final DialogListItem item = datas[index];
+    final DialogListItem<W, D> item = datas[index];
     GestureTapCallback onTap;
     if (itemClickListener != null) {
-      onTap = () => itemClickListener.call(item.data, index, context);
+      onTap = () => itemClickListener(item.data, index, context);
     }
 
+    W widget = item.widget;
     Widget child = itemBuilder?.call(
       context,
-      item,
+      widget,
       borderRadius: borderRadius,
       padding: itemPadding,
       height: itemHeight,
@@ -175,9 +180,9 @@ class DHListDialog extends DHAlertDialog {
       onTap: onTap,
     );
 
-    if (child == null && item.widget is TextItem) {
+    if (child == null && widget is TextItem) {
       child = ItemTextBuilder(
-        data: item.widget,
+        data: widget,
         alignment: itemAlignment,
         padding: itemPadding,
         height: itemHeight,
