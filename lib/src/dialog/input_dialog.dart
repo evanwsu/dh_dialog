@@ -94,27 +94,49 @@ class DHInputDialog extends StatefulWidget {
   /// 会覆盖[dividerColor]设置
   final DividerBuilder actionDividerBuilder;
 
+  /// 输入文本
   final String text;
+  /// 输入文本样式
   final TextStyle style;
+  /// 输入框装饰
   final InputDecoration decoration;
+  /// 输入框最大行数
   final int maxLines;
-
+  /// 输入内容格式化
   final List<TextInputFormatter> inputFormatter;
+  /// 输入法类型
   final TextInputType keyboardType;
+  /// 输入内容最大长度
   final int maxLength;
+  /// 输入框是否可用
   final bool enabled;
+  /// 提示文本
   final String hintText;
+  /// 提示文本样式
   final TextStyle hintStyle;
+  /// 边框样式，无边框[InputBorderStyle.none]，
+  /// 下划线[InputBorderStyle.underline]，
+  /// 矩形[InputBorderStyle.outline]
   final InputBorderStyle borderStyle;
+  /// 输入框内容填充
   final EdgeInsetsGeometry inputPadding;
+  /// 边框属性样式，设置边框颜色，边框宽度，有无边框
   final BorderSide borderSide;
+  /// 边框圆角半径
   final BorderRadius borderRadius;
+  /// 输入框背景是否填充颜色
   final bool filled;
+  /// 输入框背景填充颜色，[filled] 为true时工作
   final Color fillColor;
+  /// 输入框右侧控件
   final Widget suffix;
+  /// 输入框右侧点击事件，设置后[suffix]附加点击事件
   final GestureTapCallback suffixOnTap;
+  /// 输入框右侧控件大小约束
   final BoxConstraints suffixConstraints;
+  /// 是否显示文本统计，true必须设置[maxLength]才能工作
   final bool showCounter;
+  /// 返回[TextEditingController]对象
   final ValueSetter<TextEditingController> controllerGetter;
 
   DHInputDialog({
