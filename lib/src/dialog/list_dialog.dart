@@ -88,7 +88,8 @@ class DHListDialog<W, D> extends DHAlertDialog {
     Color dividerColor = DHColors.color_000000_15,
     DividerBuilder actionDividerBuilder,
     Color backgroundColor,
-    double circleRadius = 20.0,
+    double topRadius = 20.0,
+    double bottomRadius = 20.0,
     double elevation,
     double dialogWidth,
     EdgeInsetsGeometry dialogMargin,
@@ -116,7 +117,8 @@ class DHListDialog<W, D> extends DHAlertDialog {
           dividerColor: dividerColor,
           actionDividerBuilder: actionDividerBuilder,
           backgroundColor: backgroundColor,
-          circleRadius: circleRadius,
+          topRadius: topRadius,
+          bottomRadius: bottomRadius,
           elevation: elevation,
           dialogWidth: dialogWidth,
           dialogMargin: dialogMargin,
@@ -127,15 +129,16 @@ class DHListDialog<W, D> extends DHAlertDialog {
   Widget buildContent() {
     Widget contentWidget;
     if (datas != null && datas.isNotEmpty) {
-      final radius = Radius.circular(circleRadius);
+      final top = Radius.circular(topRadius);
+      final bottom = Radius.circular(bottomRadius);
       IndexedWidgetBuilder itemBuilder = (BuildContext context, int index) {
         // 无标题第一个item 设置上部分圆角
         BorderRadius borderRadius;
         if (index == 0 && !hasTitle) {
-          borderRadius = BorderRadius.vertical(top: radius);
+          borderRadius = BorderRadius.vertical(top: top);
         } else if (index == datas.length - 1 &&
             (!hasNegative && !hasPositive)) {
-          borderRadius = BorderRadius.vertical(bottom: radius);
+          borderRadius = BorderRadius.vertical(bottom: bottom);
         }
         return buildItem(context, index, borderRadius);
       };

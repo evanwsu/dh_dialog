@@ -37,9 +37,9 @@ Future<T> showDHDialog<T>({
               _buildDialogTransition(context, animation, secondaryAnimation,
                   child, entryAnimation),
       transitionDuration:
-          transitionDuration ?? (entryAnimation == EntryAnimation.fade)
+          transitionDuration ?? ((entryAnimation == EntryAnimation.fade)
               ? normalDuration
-              : slowDuration);
+              : slowDuration));
 }
 
 /// 根据动画类型构建动画控件

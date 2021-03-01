@@ -79,7 +79,10 @@ class DHInputDialog extends StatefulWidget {
   final double elevation;
 
   /// 对话框圆角
-  final double circleRadius;
+  final double topRadius;
+
+  /// 底部圆角
+  final double bottomRadius;
 
   /// 对话框的边距
   final EdgeInsetsGeometry dialogMargin;
@@ -158,7 +161,8 @@ class DHInputDialog extends StatefulWidget {
     this.actionHeight,
     this.dialogMargin,
     this.backgroundColor,
-    this.circleRadius = 20.0,
+    this.topRadius = 20.0,
+    this.bottomRadius = 20.0,
     this.elevation,
     this.dividerColor = DHColors.color_000000_15,
     this.actionDividerBuilder,
@@ -309,7 +313,8 @@ class _DHInputDialogState extends State<DHInputDialog> {
       actionHeight: widget.actionHeight,
       dialogMargin: widget.dialogMargin,
       backgroundColor: widget.backgroundColor,
-      circleRadius: widget.circleRadius,
+      topRadius: widget.topRadius,
+      bottomRadius: widget.bottomRadius,
       elevation: widget.elevation,
       dividerColor: widget.dividerColor,
       actionDividerBuilder: widget.actionDividerBuilder,

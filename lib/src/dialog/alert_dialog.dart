@@ -111,7 +111,10 @@ class DHAlertDialog extends StatelessWidget {
   final double elevation;
 
   /// 对话框圆角
-  final double circleRadius;
+  final double topRadius;
+
+  /// 底部圆角
+  final double bottomRadius;
 
   /// 对话框的边距
   final EdgeInsetsGeometry dialogMargin;
@@ -126,37 +129,37 @@ class DHAlertDialog extends StatelessWidget {
   /// 会覆盖[dividerColor]设置
   final DividerBuilder actionDividerBuilder;
 
-
-  DHAlertDialog({
-    Key key,
-    this.title,
-    this.titleText,
-    this.titlePadding,
-    this.titleTextStyle,
-    this.titleAlign = TextAlign.center,
-    this.content,
-    this.contentText,
-    this.contentPadding,
-    this.contentTextStyle,
-    this.contentAlign = TextAlign.center,
-    this.positiveText,
-    this.positiveTextStyle,
-    this.positiveTap,
-    this.hasPositive = true,
-    this.negativeText,
-    this.negativeTextStyle,
-    this.negativeTap,
-    this.hasNegative = true,
-    this.actionHeight,
-    this.dividerColor = DHColors.color_000000_15,
-    this.actionDividerBuilder,
-    this.backgroundColor,
-    this.circleRadius = 20.0,
-    this.elevation,
-    this.dialogMargin,
-    this.dialogAlignment = Alignment.center,
-    this.dialogWidth
-  })  : assert(dialogAlignment != null),
+  DHAlertDialog(
+      {Key key,
+      this.title,
+      this.titleText,
+      this.titlePadding,
+      this.titleTextStyle,
+      this.titleAlign = TextAlign.center,
+      this.content,
+      this.contentText,
+      this.contentPadding,
+      this.contentTextStyle,
+      this.contentAlign = TextAlign.center,
+      this.positiveText,
+      this.positiveTextStyle,
+      this.positiveTap,
+      this.hasPositive = true,
+      this.negativeText,
+      this.negativeTextStyle,
+      this.negativeTap,
+      this.hasNegative = true,
+      this.actionHeight,
+      this.dividerColor = DHColors.color_000000_15,
+      this.actionDividerBuilder,
+      this.backgroundColor,
+      this.topRadius = 20.0,
+      this.bottomRadius = 20.0,
+      this.elevation,
+      this.dialogMargin,
+      this.dialogAlignment = Alignment.center,
+      this.dialogWidth})
+      : assert(dialogAlignment != null),
         assert(titleAlign != null),
         assert(contentAlign != null),
         super(key: key);
@@ -176,7 +179,7 @@ class DHAlertDialog extends StatelessWidget {
       );
     }
 
-    final radius = Radius.circular(circleRadius);
+    final radius = Radius.circular(bottomRadius);
     if (hasNegative) {
       actions.add(Expanded(
           child: ActionButton(
@@ -240,7 +243,10 @@ class DHAlertDialog extends StatelessWidget {
       contentTextStyle: contentTextStyle,
       action: actionWidget,
       backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(radius)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(topRadius), bottom: radius),
+      ),
       elevation: elevation,
       dialogMargin: dialogMargin,
       divider: dividerWidget,
@@ -249,7 +255,7 @@ class DHAlertDialog extends StatelessWidget {
     );
   }
 
-  Widget buildContent(){
+  Widget buildContent() {
     Widget contentWidget = content;
     if (content == null && isNotEmpty(contentText)) {
       contentWidget = Text(
