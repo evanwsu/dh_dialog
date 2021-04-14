@@ -14,49 +14,49 @@ import '../res/styles.dart';
 /// 对话框控件
 class DHDialog extends StatelessWidget {
   /// 标题控件
-  final Widget title;
+  final Widget? title;
 
   /// 标题控件的填充大小
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// 标题文本样式
-  final TextStyle titleTextStyle;
+  final TextStyle? titleTextStyle;
 
   /// 内容控件
-  final Widget content;
+  final Widget? content;
 
   /// 内容控件的填充大小
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
 
   /// 内容文本样式
-  final TextStyle contentTextStyle;
+  final TextStyle? contentTextStyle;
 
   /// 按钮控件
-  final Widget action;
+  final Widget? action;
 
   /// 对话框边框形状
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
   /// 对话框背景颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 对话框阴影Z轴高度
-  final double elevation;
+  final double? elevation;
 
   /// 对话框边距
-  final EdgeInsetsGeometry dialogMargin;
+  final EdgeInsets? dialogMargin;
 
   /// 对话框宽度
-  final double dialogWidth;
+  final double? dialogWidth;
 
   /// actions  和 content之间的分割线
-  final Widget divider;
+  final Widget? divider;
 
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
   DHDialog(
-      {Key key,
+      {Key? key,
       this.title,
       this.titlePadding,
       this.titleTextStyle,
@@ -75,7 +75,7 @@ class DHDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget titleWidget;
+    Widget? titleWidget;
 
     if (title != null) {
       titleWidget = Padding(
@@ -84,30 +84,30 @@ class DHDialog extends StatelessWidget {
                 24.0, 24.0, 24.0, content == null ? 24.0 : 16.0),
         child: DefaultTextStyle(
           style: titleTextStyle ?? DialogStyle.titleStyle,
-          child: title,
+          child: title!,
         ),
       );
     }
 
-    Widget contentWidget;
+    Widget? contentWidget;
     if (content != null)
       contentWidget = Padding(
         padding: contentPadding ??
             EdgeInsets.fromLTRB(24.0, title == null ? 24.0 : .0, 24.0, 24.0),
         child: DefaultTextStyle(
           style: contentTextStyle ?? DialogStyle.contentStyle,
-          child: content,
+          child: content!,
         ),
       );
 
     List<Widget> children = <Widget>[
       if (titleWidget != null) titleWidget,
       if (contentWidget != null) Flexible(child: contentWidget),
-      if (divider != null) divider,
-      if (action != null) action,
+      if (divider != null) divider!,
+      if (action != null) action!,
     ];
 
-    Widget dialog;
+    Widget? dialog;
     if (children.isNotEmpty) {
       dialog = Column(
         mainAxisSize: MainAxisSize.min,
@@ -138,28 +138,28 @@ class BaseDialog extends StatelessWidget {
   static const double _defaultElevation = 24.0;
 
   /// 对话框边框形状
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
   /// 对话框背景颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 对话框阴影Z轴高度
-  final double elevation;
+  final double? elevation;
 
   /// 对话框边距
-  final EdgeInsetsGeometry dialogMargin;
+  final EdgeInsets? dialogMargin;
 
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
   /// 子控件
-  final Widget child;
+  final Widget? child;
 
   /// 最大宽度
-  final double dialogWidth;
+  final double? dialogWidth;
 
   BaseDialog({
-    Key key,
+    Key? key,
     this.child,
     this.backgroundColor,
     this.shape,
@@ -173,7 +173,7 @@ class BaseDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final dialogMargin = this.dialogMargin ?? DialogStyle.dialogMargin;
     final DialogTheme dialogTheme = DialogTheme.of(context);
-    double maxWidth = this.dialogWidth;
+    double? maxWidth = this.dialogWidth;
 
     if (maxWidth == null) {
       final width = MediaQuery.of(context).size.width;

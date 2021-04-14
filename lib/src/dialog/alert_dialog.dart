@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../action_button.dart';
 import '../res/colors.dart';
 import '../res/styles.dart';
@@ -35,80 +36,80 @@ typedef DividerBuilder = Widget Function(
 
 class DHAlertDialog extends StatelessWidget {
   /// 标题控件
-  final Widget title;
+  final Widget? title;
 
   /// 标题文本 作为[title]的一个备用控件实现[Text]
   /// 如果设置[title]，该项设置不起作用
   /// 标题文本样式请设置[titleTextStyle]
-  final String titleText;
+  final String? titleText;
 
   /// 标题文本样式
   /// 如果设置[title]，该项设置不起作用
-  final TextStyle titleTextStyle;
+  final TextStyle? titleTextStyle;
 
   /// 标题文本边距
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// 标题水平对齐方式
   final TextAlign titleAlign;
 
   /// 内容控件
-  final Widget content;
+  final Widget? content;
 
   /// 内容文本，作为[content]的一个备用控件实现[Text]
   /// 如果设置[content]，该项设置不起作用
   /// 内容文本样式请设置[contentTextStyle]
-  final String contentText;
+  final String? contentText;
 
   /// 内容文本样式
   /// 如果设置[content]，该项设置不起作用
-  final TextStyle contentTextStyle;
+  final TextStyle? contentTextStyle;
 
   /// 内容部分边距
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
 
   /// 内容水平对齐方式
   final TextAlign contentAlign;
 
   /// 肯定按钮文本
-  final String positiveText;
+  final String? positiveText;
 
   /// 肯定按钮文本样式
   /// 按钮高度请设置[actionHeight]
-  final TextStyle positiveTextStyle;
+  final TextStyle? positiveTextStyle;
 
   /// 肯定按钮点击事件
-  final GestureTapCallback positiveTap;
+  final GestureTapCallback? positiveTap;
 
   /// 右侧确定按钮，默认true
   final bool hasPositive;
 
   /// 否定按钮文本
-  final String negativeText;
+  final String? negativeText;
 
   /// 否定按钮文本样式
   /// 按钮高度请设置[actionHeight]
-  final TextStyle negativeTextStyle;
+  final TextStyle? negativeTextStyle;
 
   /// 否定按钮点击事件
-  final GestureTapCallback negativeTap;
+  final GestureTapCallback? negativeTap;
 
   /// 左侧取消按钮
   final bool hasNegative;
 
   /// 按钮高度设置
-  final double actionHeight;
+  final double? actionHeight;
 
   /// 对话框有效部分背景颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 分割线颜色，可能作用在以下部分
   /// 1.listItem 分割线(未设置[itemDividerBuilder])
   /// 2.positiveAction 和 negativeAction分割线 (未设置[actionDividerBuilder])
   /// 3.listView和action 分割线(未设置[actionDividerBuilder])
-  final Color dividerColor;
+  final Color? dividerColor;
 
-  final double elevation;
+  final double? elevation;
 
   /// 对话框圆角
   final double topRadius;
@@ -117,64 +118,64 @@ class DHAlertDialog extends StatelessWidget {
   final double bottomRadius;
 
   /// 对话框的边距
-  final EdgeInsetsGeometry dialogMargin;
+  final EdgeInsets? dialogMargin;
 
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
   /// 对话框最大宽度
-  final double dialogWidth;
+  final double? dialogWidth;
 
   /// action按钮间分割线，也包括listView 和 Action分割线
   /// 会覆盖[dividerColor]设置
-  final DividerBuilder actionDividerBuilder;
+  final DividerBuilder? actionDividerBuilder;
 
-  DHAlertDialog(
-      {Key key,
-      this.title,
-      this.titleText,
-      this.titlePadding,
-      this.titleTextStyle,
-      this.titleAlign = TextAlign.center,
-      this.content,
-      this.contentText,
-      this.contentPadding,
-      this.contentTextStyle,
-      this.contentAlign = TextAlign.center,
-      this.positiveText,
-      this.positiveTextStyle,
-      this.positiveTap,
-      this.hasPositive = true,
-      this.negativeText,
-      this.negativeTextStyle,
-      this.negativeTap,
-      this.hasNegative = true,
-      this.actionHeight,
-      this.dividerColor = DHColors.color_000000_15,
-      this.actionDividerBuilder,
-      this.backgroundColor,
-      this.topRadius = 20.0,
-      this.bottomRadius = 20.0,
-      this.elevation,
-      this.dialogMargin,
-      this.dialogAlignment = Alignment.center,
-      this.dialogWidth})
-      : assert(dialogAlignment != null),
+  DHAlertDialog({
+    Key? key,
+    this.title,
+    this.titleText,
+    this.titlePadding,
+    this.titleTextStyle,
+    this.titleAlign = TextAlign.center,
+    this.content,
+    this.contentText,
+    this.contentPadding,
+    this.contentTextStyle,
+    this.contentAlign = TextAlign.center,
+    this.positiveText,
+    this.positiveTextStyle,
+    this.positiveTap,
+    this.hasPositive = true,
+    this.negativeText,
+    this.negativeTextStyle,
+    this.negativeTap,
+    this.hasNegative = true,
+    this.actionHeight,
+    this.dividerColor = DHColors.color_000000_15,
+    this.actionDividerBuilder,
+    this.backgroundColor,
+    this.topRadius = 20.0,
+    this.bottomRadius = 20.0,
+    this.elevation,
+    this.dialogMargin,
+    this.dialogAlignment = Alignment.center,
+    this.dialogWidth,
+  })  : assert(dialogAlignment != null),
         assert(titleAlign != null),
         assert(contentAlign != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget titleWidget = title;
-    Widget contentWidget = buildContent();
-    Widget dividerWidget;
-    Widget actionWidget;
+    Widget? titleWidget = title;
+    Widget? contentWidget = buildContent();
+    Widget? dividerWidget;
+    Widget? actionWidget;
     List<Widget> actions = [];
 
     if (title == null && isNotEmpty(titleText)) {
       titleWidget = Text(
-        titleText,
+        titleText!,
         textAlign: titleAlign,
       );
     }
@@ -255,11 +256,11 @@ class DHAlertDialog extends StatelessWidget {
     );
   }
 
-  Widget buildContent() {
-    Widget contentWidget = content;
+  Widget? buildContent() {
+    Widget? contentWidget = content;
     if (content == null && isNotEmpty(contentText)) {
       contentWidget = Text(
-        contentText,
+        contentText!,
         textAlign: contentAlign,
       );
     }

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    List<DialogListItem> weeks = <DialogListItem<ChoiceItem, String>>[
+    List<DialogListItem<ChoiceItem, String>> weeks = [
       DialogListItem(
           ChoiceItem(
               imgWidth: 22,
@@ -143,15 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           titleText: "班级",
                           titleAlign: TextAlign.center,
                           datas: [
-                            DialogListItem(
-                                TextItem(text: "高一(1)班"),
-                                data: "1"),
-                            DialogListItem(
-                                TextItem(text: "高一(2)班"),
-                                data: "2"),
-                            DialogListItem(
-                                TextItem(text: "高一(3)班"),
-                                data: "3"),
+                            DialogListItem(TextItem(text: "高一(1)班"), data: "1"),
+                            DialogListItem(TextItem(text: "高一(2)班"), data: "2"),
+                            DialogListItem(TextItem(text: "高一(3)班"), data: "3"),
                           ],
                           itemAlignment: Alignment.centerLeft,
                           itemClickListener: (data, position, context) {
@@ -160,9 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           dividerColor: Colors.yellow,
                           itemDividerBuilder: (context, index) => Container(
-                              color: Colors.red,
-                              height: 1.0,
-                            ),
+                            color: Colors.red,
+                            height: 1.0,
+                          ),
                           actionDividerBuilder: (context, type) {
                             return Container(
                               color: Colors.purple,
@@ -216,8 +210,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     entryAnimation: EntryAnimation.slideBottom,
                     context: context,
                     builder: (context) {
-                      TextEditingController editController;
-                      var getter = (controller)=> editController = controller;
+                      TextEditingController? editController;
+                      var getter = (controller) => editController = controller;
 
                       return DHInputDialog(
                         titleText: "用户名",
@@ -227,12 +221,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         controllerGetter: getter,
                         keyboardType: TextInputType.number,
                         hintText: "请输入用户名",
-                        suffixOnTap: ()=> editController.text = "",
-                        suffix: Text("删除", style: TextStyle(color: Colors.pink, fontSize: 12),),
-                        positiveTap: (result){
+                        suffixOnTap: () => editController?.text = "",
+                        suffix: Text(
+                          "删除",
+                          style: TextStyle(color: Colors.pink, fontSize: 12),
+                        ),
+                        positiveTap: (result) {
                           dismissDHDialog(context);
                         },
-                        negativeTap: (result){
+                        negativeTap: (result) {
                           dismissDHDialog(context);
                         },
                       );

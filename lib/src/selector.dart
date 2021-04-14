@@ -1,16 +1,19 @@
 ///@author Evan
 ///@since 2020/12/23
-///@describe: 
+///@describe:
 
-class Selector<T>{
+class Selector<T> {
   /// 通常状态
-  final T normal;
+  final T? normal;
+
   /// 选中状态
-  final T active;
+  final T? active;
+
   /// 不可用状态
-  final T disabled;
+  final T? disabled;
+
   /// 选中不可用状态
-  final T inactive;
+  final T? inactive;
 
   /// 不同状态单独设置
   /// 未设置状态的图标为null
@@ -26,7 +29,7 @@ class Selector<T>{
   /// active 设置[active] 状态
   /// 其余设置[normal] 状态
   /// 使用不考虑 选中不可用状态
-  const Selector.normal({T normal, T active})
+  const Selector.normal({T? normal, T? active})
       : normal = normal,
         active = active,
         disabled = normal,
@@ -35,7 +38,7 @@ class Selector<T>{
   /// normal 设置[normal] 和 [disabled]
   /// active 设置[active] 和 [inactive]
   /// 效果同Selected.disabled, 参数名不同, 重在表达正常状态
-  const Selector.active({T normal, T active})
+  const Selector.active({T? normal, T? active})
       : normal = normal,
         active = active,
         disabled = normal,
@@ -44,25 +47,24 @@ class Selector<T>{
   /// disabled 设置[normal] 和 [disabled]
   /// inactive 设置[active] 和 [inactive]
   /// 效果同Selected.active, 参数名不同, 重在表达选中状态
-  const Selector.disabled({T disabled, T inactive})
+  const Selector.disabled({T? disabled, T? inactive})
       : normal = disabled,
         active = inactive,
         disabled = disabled,
         inactive = inactive;
 
   /// 获取对应状态值
-  static T getSelected<T>(Selector<T> selected, [bool checked = false, bool disabled = false]) {
-    if (selected == null) return null;
-
-    T state;
+  static T? getSelected<T>(Selector<T>? selected,
+      [bool checked = false, bool disabled = false]) {
+    T? state;
     if (disabled && checked) {
-      state = selected.inactive;
+      state = selected?.inactive;
     } else if (disabled) {
-      state = selected.disabled;
+      state = selected?.disabled;
     } else if (checked) {
-      state = selected.active;
+      state = selected?.active;
     } else {
-      state = selected.normal;
+      state = selected?.normal;
     }
     return state;
   }

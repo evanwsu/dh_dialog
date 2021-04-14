@@ -18,43 +18,43 @@ import 'list_dialog.dart';
 /// [itemBuilder] 条目布局构造器
 ///
 ///
-class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog {
+class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
   /// 是否多选
   final bool multiChose;
 
-  DHChoiceDialog(
-      {Key key,
-      Widget title,
-      String titleText,
-      EdgeInsetsGeometry titlePadding,
-      TextStyle titleTextStyle,
-      TextAlign titleAlign = TextAlign.center,
-      @required List<DialogListItem<W, D>> datas,
-      EdgeInsetsGeometry itemPadding = DialogStyle.listItemHorizontal,
-      double itemHeight = DialogStyle.itemHeight,
-      Alignment itemAlignment = Alignment.center,
-      IndexedWidgetBuilder itemDividerBuilder,
-      ListItemBuilder itemBuilder,
-      String positiveText,
-      TextStyle positiveTextStyle,
-      GestureTapCallback positiveTap,
-      bool hasPositive = true,
-      String negativeText,
-      TextStyle negativeTextStyle,
-      GestureTapCallback negativeTap,
-      bool hasNegative = true,
-      double actionHeight,
-      EdgeInsetsGeometry dialogMargin,
-      Color backgroundColor,
-      double topRadius = 20.0,
-      double bottomRadius = 20.0,
-      double elevation,
-      Color dividerColor = DHColors.color_000000_15,
-      DividerBuilder actionDividerBuilder,
-      AlignmentGeometry dialogAlignment = Alignment.bottomCenter,
-      double dialogWidth,
-      this.multiChose = false})
-      : super(
+  DHChoiceDialog({
+    Key? key,
+    Widget? title,
+    String? titleText,
+    EdgeInsetsGeometry? titlePadding,
+    TextStyle? titleTextStyle,
+    TextAlign titleAlign = TextAlign.center,
+    required List<DialogListItem<W, D>> datas,
+    EdgeInsetsGeometry? itemPadding = DialogStyle.listItemHorizontal,
+    double itemHeight = DialogStyle.itemHeight,
+    Alignment itemAlignment = Alignment.center,
+    IndexedWidgetBuilder? itemDividerBuilder,
+    ListItemBuilder? itemBuilder,
+    String? positiveText,
+    TextStyle? positiveTextStyle,
+    GestureTapCallback? positiveTap,
+    bool hasPositive = true,
+    String? negativeText,
+    TextStyle? negativeTextStyle,
+    GestureTapCallback? negativeTap,
+    bool hasNegative = true,
+    double? actionHeight,
+    EdgeInsets? dialogMargin,
+    Color? backgroundColor,
+    double topRadius = 20.0,
+    double bottomRadius = 20.0,
+    double? elevation,
+    Color? dividerColor = DHColors.color_000000_15,
+    DividerBuilder? actionDividerBuilder,
+    AlignmentGeometry dialogAlignment = Alignment.bottomCenter,
+    double? dialogWidth,
+    this.multiChose = false,
+  }) : super(
           key: key,
           title: title,
           titleText: titleText,
@@ -88,7 +88,8 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog {
         );
 
   @override
-  Widget buildItem(BuildContext context, int index, BorderRadius borderRadius) {
+  Widget buildItem(
+      BuildContext context, int index, BorderRadius? borderRadius) {
     final DialogListItem<W, D> item = datas[index];
     W widget = item.widget;
 
@@ -102,7 +103,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog {
       (context as Element).markNeedsBuild();
     };
 
-    Widget child = itemBuilder?.call(
+    Widget? child = itemBuilder?.call(
       context,
       widget,
       borderRadius: borderRadius,
@@ -122,6 +123,8 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog {
         onTap: onTap,
       );
     }
-    return child;
+    assert(child != null,
+        'List item build failed, you must set itemBuilder or datas element widget is ChoiceItem');
+    return child!;
   }
 }

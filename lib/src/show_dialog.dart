@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 const slowDuration = Duration(milliseconds: 250);
 const normalDuration = Duration(milliseconds: 150);
 
-Future<T> showDHDialog<T>({
-  @required BuildContext context,
-  @required WidgetBuilder builder,
-  RouteTransitionsBuilder transitionBuilder,
+Future<T?> showDHDialog<T>({
+  required BuildContext context,
+  required WidgetBuilder builder,
+  RouteTransitionsBuilder? transitionBuilder,
   EntryAnimation entryAnimation = EntryAnimation.none,
-  Duration transitionDuration,
-  Color barrierColor,
+  Duration? transitionDuration,
+  Color barrierColor = Colors.black54,
   bool barrierDismissible = true,
   bool useSafeArea = true,
   bool useRootNavigator = true,
@@ -29,7 +29,7 @@ Future<T> showDHDialog<T>({
         return dialog;
       },
       barrierDismissible: barrierDismissible,
-      barrierColor: barrierColor ?? Colors.black54,
+      barrierColor: barrierColor,
       barrierLabel: "",
       useRootNavigator: useRootNavigator,
       transitionBuilder: transitionBuilder ??
@@ -49,8 +49,8 @@ Widget _buildDialogTransition(
     Animation<double> secondaryAnimation,
     Widget child,
     EntryAnimation entryAnimation) {
-  Widget transition;
-  Offset begin;
+  Widget? transition;
+  Offset? begin;
   switch (entryAnimation) {
     case EntryAnimation.fade:
       transition = FadeTransition(
@@ -97,5 +97,5 @@ Widget _buildDialogTransition(
 enum EntryAnimation { slideLeft, slideTop, slideRight, slideBottom, fade, none }
 
 /// 隐藏dialog
-void dismissDHDialog<T extends Object>(BuildContext context, [T result]) =>
+void dismissDHDialog<T extends Object>(BuildContext context, [T? result]) =>
     Navigator.pop(context, result);

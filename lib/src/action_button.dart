@@ -2,44 +2,44 @@ import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
   /// 控件宽度
-  final double width;
+  final double? width;
 
   /// 控件高度
-  final double height;
+  final double? height;
 
   /// 按钮背景颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 按钮背景装饰
-  final Decoration decoration;
+  final Decoration? decoration;
 
   /// 按钮周边填充
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// 按钮点击事件
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   /// 是否可用
   final bool disabled;
 
   /// 文本 设置后等同文本按钮
-  final String text;
+  final String? text;
 
   /// 图片 设置后等同图片按钮
   /// 文本样式
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// 波纹背景形状
-  final ShapeBorder customBorder;
+  final ShapeBorder? customBorder;
 
   /// 控件内部padding, 包裹在child外层
-  final EdgeInsetsGeometry innerPadding;
+  final EdgeInsetsGeometry? innerPadding;
 
   /// 按钮对齐方式
   final AlignmentGeometry alignment;
 
   /// 按钮子控件 设置后text属性失效
-  final Widget child;
+  final Widget? child;
 
   ActionButton({
     this.width,
@@ -66,7 +66,7 @@ class ActionButton extends StatelessWidget {
 
     if (innerPadding != null) {
       child = Padding(
-        padding: innerPadding,
+        padding: innerPadding!,
         child: child,
       );
     }

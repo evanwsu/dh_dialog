@@ -32,15 +32,15 @@ class DialogStyle{
       fontSize: 14
   );
 
-  static const EdgeInsetsGeometry listItemPadding = EdgeInsets.symmetric(
+  static const EdgeInsets listItemPadding = EdgeInsets.symmetric(
     vertical: 17, horizontal: 24
   );
 
-  static const EdgeInsetsGeometry listItemHorizontal = EdgeInsets.symmetric(
+  static const EdgeInsets listItemHorizontal = EdgeInsets.symmetric(
       horizontal: 24
   );
 
-  static const EdgeInsetsGeometry dialogMargin = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+  static const EdgeInsets dialogMargin = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
   static const TextStyle inputTextStyle = TextStyle(
       color: DHColors.color_333333,

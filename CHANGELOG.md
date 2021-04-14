@@ -1,3 +1,7 @@
+## [0.0.4] - 2021.04.14
+
+- Null safety
+
 ## [0.0.3] - 2021.03.01 
 
 - update Alert Dialog shape border vertical radius 
