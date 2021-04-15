@@ -1,4 +1,8 @@
-## [0.0.4] - 2021.04.14
+## [0.0.5] - 2021.04.16
+
+- ListDialog Content Padding
+
+## [0.0.4] - 2021.04.14t
 
 - Null safety
 
