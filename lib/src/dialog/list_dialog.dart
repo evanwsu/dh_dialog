@@ -77,6 +77,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
     this.itemDividerBuilder,
     this.itemBuilder,
     this.itemClickListener,
+    EdgeInsetsGeometry? contentPadding = EdgeInsets.zero,
     String? positiveText,
     TextStyle? positiveTextStyle,
     GestureTapCallback? positiveTap,
@@ -105,7 +106,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
           titlePadding: titlePadding,
           titleTextStyle: titleTextStyle,
           titleAlign: titleAlign,
-          contentPadding: EdgeInsets.zero,
+          contentPadding: contentPadding,
           positiveText: positiveText,
           positiveTextStyle: positiveTextStyle,
           positiveTap: positiveTap,
@@ -149,12 +150,14 @@ class DHListDialog<W, D> extends DHAlertDialog {
         child: itemDividerBuilder != null
             ? ListView.separated(
                 shrinkWrap: true,
+                padding: EdgeInsets.zero,
                 itemBuilder: itemBuilder,
                 separatorBuilder: itemDividerBuilder!,
                 itemCount: datas.length,
               )
             : ListView.builder(
                 shrinkWrap: true,
+                padding: EdgeInsets.zero,
                 itemBuilder: itemBuilder,
                 itemCount: datas.length,
               ),
@@ -195,7 +198,8 @@ class DHListDialog<W, D> extends DHAlertDialog {
         onTap: onTap,
       );
     }
-    assert(child != null, 'List item build failed, you must set itemBuilder or datas element widget is TextItem');
+    assert(child != null,
+        'List item build failed, you must set itemBuilder or datas element widget is TextItem');
     return child!;
   }
 

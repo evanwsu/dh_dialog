@@ -93,7 +93,12 @@ class DHDialog extends StatelessWidget {
     if (content != null)
       contentWidget = Padding(
         padding: contentPadding ??
-            EdgeInsets.fromLTRB(24.0, title == null ? 24.0 : .0, 24.0, 24.0),
+            EdgeInsets.fromLTRB(
+              24.0,
+              title == null ? 24.0 : .0,
+              24.0,
+              action == null ? MediaQuery.of(context).padding.bottom : 24.0,
+            ),
         child: DefaultTextStyle(
           style: contentTextStyle ?? DialogStyle.contentStyle,
           child: content!,

@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   showDHDialog(
                       context: context,
@@ -133,11 +133,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       entryAnimation: EntryAnimation.slideBottom);
                 },
                 child: Text("AlertDialog")),
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   showDHDialog(
                       entryAnimation: EntryAnimation.slideBottom,
                       context: context,
+                      useSafeArea: false,
                       builder: (context) {
                         return DHListDialog(
                           titleText: "班级",
@@ -157,6 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.red,
                             height: 1.0,
                           ),
+                          hasNegative: false,
+                          hasPositive: false,
                           actionDividerBuilder: (context, type) {
                             return Container(
                               color: Colors.purple,
@@ -165,11 +168,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: type == DividerType.vertical ? 1.0 : null,
                             );
                           },
+                          contentPadding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                          dialogMargin: EdgeInsets.zero,
+                          bottomRadius: 0,
+                          topRadius: 10,
                         );
                       });
                 },
                 child: Text("ListDialog")),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 showDHDialog(
                     entryAnimation: EntryAnimation.slideBottom,
@@ -185,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text("SingleChoiceDialog"),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 showDHDialog(
                     entryAnimation: EntryAnimation.slideBottom,
@@ -204,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text("MultipleChoiceDialog"),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 showDHDialog(
                     entryAnimation: EntryAnimation.slideBottom,
