@@ -1,3 +1,7 @@
+## [0.0.6] - 2021.06.04
+
+- ListDialog ListItemBuilder index
+
 ## [0.0.5] - 2021.04.16
 
 - ListDialog Content Padding

@@ -15,7 +15,8 @@ export 'alert_dialog.dart' show DividerBuilder, DividerType;
 
 typedef ListItemBuilder<T> = Widget Function(
   BuildContext context,
-  T item, {
+  T item,
+  int index, {
   BorderRadius? borderRadius,
   EdgeInsetsGeometry? padding,
   double? height,
@@ -181,6 +182,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
     Widget? child = itemBuilder?.call(
       context,
       widget,
+      index,
       borderRadius: borderRadius,
       padding: itemPadding,
       height: itemHeight,

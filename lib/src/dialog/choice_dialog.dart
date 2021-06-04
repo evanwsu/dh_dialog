@@ -34,7 +34,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
     double itemHeight = DialogStyle.itemHeight,
     Alignment itemAlignment = Alignment.center,
     IndexedWidgetBuilder? itemDividerBuilder,
-    ListItemBuilder? itemBuilder,
+    ListItemBuilder<W>? itemBuilder,
     EdgeInsetsGeometry? contentPadding = EdgeInsets.zero,
     String? positiveText,
     TextStyle? positiveTextStyle,
@@ -108,6 +108,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
     Widget? child = itemBuilder?.call(
       context,
       widget,
+      index,
       borderRadius: borderRadius,
       padding: itemPadding,
       height: itemHeight,
