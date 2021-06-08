@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dh_dialog/dh_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -168,7 +169,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: type == DividerType.vertical ? 1.0 : null,
                             );
                           },
-                          contentPadding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                          contentPadding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).padding.bottom),
                           dialogMargin: EdgeInsets.zero,
                           bottomRadius: 0,
                           topRadius: 10,
@@ -243,7 +245,92 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
               },
               child: Text("InputDialog"),
-            )
+            ),
+            TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      var datas = [
+                        TextItem(text: '选项1'),
+                        TextItem(text: '选项2'),
+                        TextItem(text: '选项3'),
+                        TextItem(text: '选项4'),
+                        TextItem(text: '选项5'),
+                        TextItem(text: '选项6'),
+                        TextItem(text: '选项7'),
+                        TextItem(text: '选项8'),
+                        TextItem(text: '选项9'),
+                      ]
+                          .mapIndexed(
+                              (index, e) => DialogListItem(e, data: index))
+                          .toList();
+                      return DHGridDialog(
+                        bottomRadius: .0,
+                        topRadius: 10.0,
+                        hasNegative: false,
+                        hasPositive: false,
+                        dialogAlignment: Alignment.bottomCenter,
+                        dialogMargin: EdgeInsets.zero,
+                        titleText: '清单文件',
+                        itemClickListener:
+                            (int? data, int position, BuildContext context) {
+                          print('click item $position');
+                        },
+                        datas: datas,
+                        itemBuilder: (
+                          BuildContext context,
+                          TextItem data,
+                          int index, {
+                          BorderRadius? borderRadius,
+                          EdgeInsetsGeometry? padding,
+                          double? height,
+                          AlignmentGeometry? alignment,
+                          GestureTapCallback? onTap,
+                        }) {
+                          return GestureDetector(
+                            onTap: onTap,
+                            behavior: HitTestBehavior.opaque,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  decoration: ShapeDecoration(
+                                    color: Color(0xFFF5F7FA),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0)),
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    '$imagePathPrefix/default_icon.png',
+                                    width: 20,
+                                    height: 22,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8.0,
+                                ),
+                                Text(
+                                  data.text,
+                                  style: data.textStyle,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        crossAxisCount: 4,
+                        childAspectRatio: 0.76,
+                        contentPadding: EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                            bottom: MediaQuery.of(context).padding.bottom),
+                      );
+                    });
+              },
+              child: Text('GridDialog'),
+            ),
           ],
         ),
       ),

@@ -1,3 +1,7 @@
+## [0.0.7] - 2021.06.08
+
+- add GridDialog
+
 ## [0.0.6] - 2021.06.04
 
 - ListDialog ListItemBuilder index
