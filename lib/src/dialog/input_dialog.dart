@@ -87,6 +87,8 @@ class DHInputDialog extends StatefulWidget {
   /// 对话框的边距
   final EdgeInsets? dialogMargin;
 
+  final EdgeInsets? dialogPadding;
+
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
@@ -180,6 +182,7 @@ class DHInputDialog extends StatefulWidget {
     this.hasNegative = true,
     this.actionHeight,
     this.dialogMargin,
+    this.dialogPadding,
     this.backgroundColor,
     this.topRadius = 20.0,
     this.bottomRadius = 20.0,
@@ -333,6 +336,7 @@ class _DHInputDialogState extends State<DHInputDialog> {
       hasNegative: widget.hasNegative,
       actionHeight: widget.actionHeight,
       dialogMargin: widget.dialogMargin,
+      dialogPadding: widget.dialogPadding,
       backgroundColor: widget.backgroundColor,
       topRadius: widget.topRadius,
       bottomRadius: widget.bottomRadius,

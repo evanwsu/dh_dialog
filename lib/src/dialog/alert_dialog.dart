@@ -120,6 +120,8 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框的边距
   final EdgeInsets? dialogMargin;
 
+  final EdgeInsets? dialogPadding;
+
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
@@ -158,6 +160,7 @@ class DHAlertDialog extends StatelessWidget {
     this.bottomRadius = 20.0,
     this.elevation,
     this.dialogMargin,
+    this.dialogPadding,
     this.dialogAlignment = Alignment.center,
     this.dialogWidth,
   })  : assert(dialogAlignment != null),
@@ -250,6 +253,7 @@ class DHAlertDialog extends StatelessWidget {
       ),
       elevation: elevation,
       dialogMargin: dialogMargin,
+      dialogPadding: dialogPadding,
       divider: dividerWidget,
       dialogAlignment: dialogAlignment,
       dialogWidth: dialogWidth,

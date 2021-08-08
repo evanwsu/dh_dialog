@@ -46,6 +46,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
     bool hasNegative = true,
     double? actionHeight,
     EdgeInsets? dialogMargin,
+    EdgeInsets? dialogPadding,
     Color? backgroundColor,
     double topRadius = 20.0,
     double bottomRadius = 20.0,
@@ -86,6 +87,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
           actionDividerBuilder: actionDividerBuilder,
           dialogAlignment: dialogAlignment,
           dialogMargin: dialogMargin,
+          dialogPadding: dialogPadding,
           dialogWidth: dialogWidth,
         );
 

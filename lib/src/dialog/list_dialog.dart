@@ -96,6 +96,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
     double? elevation,
     double? dialogWidth,
     EdgeInsets? dialogMargin,
+    EdgeInsets? dialogPadding,
     AlignmentGeometry dialogAlignment = Alignment.bottomCenter,
   })  : assert(datas != null),
         assert(dialogAlignment != null),
@@ -125,6 +126,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
           elevation: elevation,
           dialogWidth: dialogWidth,
           dialogMargin: dialogMargin,
+          dialogPadding: dialogPadding,
           dialogAlignment: dialogAlignment,
         );
 

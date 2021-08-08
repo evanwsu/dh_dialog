@@ -46,6 +46,8 @@ class DHDialog extends StatelessWidget {
   /// 对话框边距
   final EdgeInsets? dialogMargin;
 
+  final EdgeInsets? dialogPadding;
+
   /// 对话框宽度
   final double? dialogWidth;
 
@@ -68,6 +70,7 @@ class DHDialog extends StatelessWidget {
       this.shape,
       this.elevation,
       this.dialogMargin,
+      this.dialogPadding,
       this.dialogWidth,
       this.divider,
       this.dialogAlignment = Alignment.center})
@@ -126,6 +129,7 @@ class DHDialog extends StatelessWidget {
       elevation: elevation,
       dialogMargin: dialogMargin,
       dialogAlignment: dialogAlignment,
+      dialogPadding: dialogPadding,
       shape: shape,
       child: dialog,
       dialogWidth: dialogWidth,
@@ -154,6 +158,9 @@ class BaseDialog extends StatelessWidget {
   /// 对话框边距
   final EdgeInsets? dialogMargin;
 
+  /// 对话框padding
+  final EdgeInsets? dialogPadding;
+
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
@@ -172,6 +179,7 @@ class BaseDialog extends StatelessWidget {
     this.dialogMargin,
     this.dialogAlignment = Alignment.center,
     this.dialogWidth,
+    this.dialogPadding,
   }) : super(key: key);
 
   @override
@@ -185,6 +193,14 @@ class BaseDialog extends StatelessWidget {
       final isPortrait =
           MediaQuery.of(context).orientation == Orientation.portrait;
       maxWidth = isPortrait ? double.infinity : width * 0.6;
+    }
+
+    Widget? child = this.child;
+    if (dialogPadding != null) {
+      child = Padding(
+        padding: dialogPadding!,
+        child: this.child,
+      );
     }
 
     return AnimatedPadding(

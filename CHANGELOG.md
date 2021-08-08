@@ -1,3 +1,7 @@
+## [0.0.8] - 2021.08.08
+
+- Add dialogPadding setting
+
 ## [0.0.7] - 2021.06.08
 
 - add GridDialog

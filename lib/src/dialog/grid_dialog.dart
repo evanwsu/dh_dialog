@@ -82,6 +82,7 @@ class DHGridDialog<W, D> extends DHAlertDialog {
     double? elevation,
     double? dialogWidth,
     EdgeInsets? dialogMargin,
+    EdgeInsets? dialogPadding,
     AlignmentGeometry dialogAlignment = Alignment.bottomCenter,
   }) : super(
           key: key,
@@ -108,6 +109,7 @@ class DHGridDialog<W, D> extends DHAlertDialog {
           elevation: elevation,
           dialogWidth: dialogWidth,
           dialogMargin: dialogMargin,
+          dialogPadding: dialogPadding,
           dialogAlignment: dialogAlignment,
         );
 
