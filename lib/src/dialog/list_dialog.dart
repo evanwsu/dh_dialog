@@ -46,7 +46,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
   /// 列表数据结构
   final List<DialogListItem<W, D>> datas;
 
-  /// listItem 分割线，会覆盖[dividerColor]设置
+  /// listItem 分割线, 未设置无分割线
   final IndexedWidgetBuilder? itemDividerBuilder;
 
   /// item 水平填充
@@ -71,6 +71,8 @@ class DHListDialog<W, D> extends DHAlertDialog {
     EdgeInsetsGeometry? titlePadding,
     TextStyle? titleTextStyle,
     TextAlign titleAlign = TextAlign.center,
+    bool hasTitleDivider = false,
+    Widget? titleDivider,
     required this.datas,
     this.itemPadding = DialogStyle.listItemPadding,
     this.itemHeight,
@@ -108,6 +110,8 @@ class DHListDialog<W, D> extends DHAlertDialog {
           titlePadding: titlePadding,
           titleTextStyle: titleTextStyle,
           titleAlign: titleAlign,
+          hasTitleDivider: hasTitleDivider,
+          titleDivider: titleDivider,
           contentPadding: contentPadding,
           positiveText: positiveText,
           positiveTextStyle: positiveTextStyle,

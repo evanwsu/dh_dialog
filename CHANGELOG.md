@@ -1,3 +1,7 @@
+## [1.0.0] - 2022.08.26
+
+- Add titleDivider
+
 ## [0.0.8] - 2021.08.08
 
 - Add dialogPadding setting

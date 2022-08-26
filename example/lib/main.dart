@@ -111,9 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         return DHListDialog(
                           titleText: "班级",
                           titleAlign: TextAlign.center,
+                          hasTitleDivider: true,
                           datas: [
                             DialogListItem(TextItem(text: "高一(1)班"), data: "1"),
                             DialogListItem(TextItem(text: "高一(2)班"), data: "2"),
@@ -185,10 +184,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     context: context,
                     builder: (context) {
                       return DHChoiceDialog<ChoiceItem, String>(
-                        titleText: "重复",
+                        titleText: "星期单选",
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,
                         multiChose: false,
+                        titleDivider: Divider(height: 10, color: Colors.orange),
                       );
                     });
               },
@@ -201,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     context: context,
                     builder: (context) {
                       return DHChoiceDialog<ChoiceItem, String>(
-                        titleText: "重复",
+                        titleText: "星期多选",
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,
                         multiChose: true,
@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       var getter = (controller) => editController = controller;
 
                       return DHInputDialog(
-                        titleText: "用户名",
+                        titleText: "输入对话框",
                         filled: true,
                         style: TextStyle(color: Colors.black, fontSize: 15),
                         borderStyle: InputBorderStyle.outline,
@@ -272,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         hasPositive: false,
                         dialogAlignment: Alignment.bottomCenter,
                         dialogMargin: EdgeInsets.zero,
-                        titleText: '清单文件',
+                        titleText: '网格列表',
                         itemClickListener:
                             (int? data, int position, BuildContext context) {
                           print('click item $position');
@@ -309,13 +309,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 22,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 8.0,
-                                ),
-                                Text(
-                                  data.text,
-                                  style: data.textStyle,
-                                ),
+                                SizedBox(height: 8.0),
+                                Text(data.text, style: data.textStyle),
                               ],
                             ),
                           );

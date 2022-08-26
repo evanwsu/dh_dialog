@@ -22,6 +22,9 @@ class DHDialog extends StatelessWidget {
   /// 标题文本样式
   final TextStyle? titleTextStyle;
 
+  /// title 和 content之间分割线
+  final Widget? titleDivider;
+
   /// 内容控件
   final Widget? content;
 
@@ -33,6 +36,9 @@ class DHDialog extends StatelessWidget {
 
   /// 按钮控件
   final Widget? action;
+
+  /// actions 和 content之间的分割线
+  final Widget? actionDivider;
 
   /// 对话框边框形状
   final ShapeBorder? shape;
@@ -51,30 +57,28 @@ class DHDialog extends StatelessWidget {
   /// 对话框宽度
   final double? dialogWidth;
 
-  /// actions  和 content之间的分割线
-  final Widget? divider;
-
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
-  DHDialog(
-      {Key? key,
-      this.title,
-      this.titlePadding,
-      this.titleTextStyle,
-      this.content,
-      this.contentPadding,
-      this.contentTextStyle,
-      this.action,
-      this.backgroundColor,
-      this.shape,
-      this.elevation,
-      this.dialogMargin,
-      this.dialogPadding,
-      this.dialogWidth,
-      this.divider,
-      this.dialogAlignment = Alignment.center})
-      : super(key: key);
+  DHDialog({
+    Key? key,
+    this.title,
+    this.titlePadding,
+    this.titleTextStyle,
+    this.titleDivider,
+    this.content,
+    this.contentPadding,
+    this.contentTextStyle,
+    this.action,
+    this.actionDivider,
+    this.backgroundColor,
+    this.shape,
+    this.elevation,
+    this.dialogMargin,
+    this.dialogPadding,
+    this.dialogWidth,
+    this.dialogAlignment = Alignment.center,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +114,9 @@ class DHDialog extends StatelessWidget {
 
     List<Widget> children = <Widget>[
       if (titleWidget != null) titleWidget,
+      if (titleDivider != null) titleDivider!,
       if (contentWidget != null) Flexible(child: contentWidget),
-      if (divider != null) divider!,
+      if (actionDivider != null) actionDivider!,
       if (action != null) action!,
     ];
 

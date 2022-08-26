@@ -53,6 +53,12 @@ class DHAlertDialog extends StatelessWidget {
   /// 标题水平对齐方式
   final TextAlign titleAlign;
 
+  /// 是否有标题分割线
+  final bool hasTitleDivider;
+
+  /// 标题分割线
+  final Widget? titleDivider;
+
   /// 内容控件
   final Widget? content;
 
@@ -100,14 +106,18 @@ class DHAlertDialog extends StatelessWidget {
   /// 按钮高度设置
   final double? actionHeight;
 
-  /// 对话框有效部分背景颜色
-  final Color? backgroundColor;
+  /// action按钮间分割线，也包括listView 和 Action分割线
+  /// 会覆盖[dividerColor]设置
+  final DividerBuilder? actionDividerBuilder;
 
   /// 分割线颜色，可能作用在以下部分
-  /// 1.listItem 分割线(未设置[itemDividerBuilder])
+  /// 1.title和content 分割线
   /// 2.positiveAction 和 negativeAction分割线 (未设置[actionDividerBuilder])
   /// 3.listView和action 分割线(未设置[actionDividerBuilder])
   final Color? dividerColor;
+
+  /// 对话框有效部分背景颜色
+  final Color? backgroundColor;
 
   final double? elevation;
 
@@ -120,6 +130,7 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框的边距
   final EdgeInsets? dialogMargin;
 
+  /// 对话框填充
   final EdgeInsets? dialogPadding;
 
   /// 对话框对齐方式
@@ -128,10 +139,6 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框最大宽度
   final double? dialogWidth;
 
-  /// action按钮间分割线，也包括listView 和 Action分割线
-  /// 会覆盖[dividerColor]设置
-  final DividerBuilder? actionDividerBuilder;
-
   DHAlertDialog({
     Key? key,
     this.title,
@@ -139,6 +146,8 @@ class DHAlertDialog extends StatelessWidget {
     this.titlePadding,
     this.titleTextStyle,
     this.titleAlign = TextAlign.center,
+    this.hasTitleDivider = false,
+    this.titleDivider,
     this.content,
     this.contentText,
     this.contentPadding,
@@ -172,7 +181,7 @@ class DHAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? titleWidget = title;
     Widget? contentWidget = buildContent();
-    Widget? dividerWidget;
+    Widget? titleDivider = this.titleDivider, actionDivider;
     Widget? actionWidget;
     List<Widget> actions = [];
 
@@ -181,6 +190,11 @@ class DHAlertDialog extends StatelessWidget {
         titleText!,
         textAlign: titleAlign,
       );
+    }
+
+    // 标题分割线
+    if(hasTitleDivider && titleDivider == null){
+      titleDivider = Container(color: dividerColor, height: 1);
     }
 
     final radius = Radius.circular(bottomRadius);
@@ -230,18 +244,16 @@ class DHAlertDialog extends StatelessWidget {
     // 添加分割线
     if ((titleWidget != null || contentWidget != null) &&
         actionWidget != null) {
-      dividerWidget =
+      actionDivider =
           actionDividerBuilder?.call(context, DividerType.horizontal) ??
-              Container(
-                color: dividerColor,
-                height: 1,
-              );
+              Container(color: dividerColor, height: 1);
     }
 
     return DHDialog(
       title: titleWidget,
       titlePadding: titlePadding,
       titleTextStyle: titleTextStyle,
+      titleDivider: titleDivider,
       content: contentWidget,
       contentPadding: contentPadding,
       contentTextStyle: contentTextStyle,
@@ -254,7 +266,7 @@ class DHAlertDialog extends StatelessWidget {
       elevation: elevation,
       dialogMargin: dialogMargin,
       dialogPadding: dialogPadding,
-      divider: dividerWidget,
+      actionDivider: actionDivider,
       dialogAlignment: dialogAlignment,
       dialogWidth: dialogWidth,
     );
