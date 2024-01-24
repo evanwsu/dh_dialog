@@ -1,3 +1,7 @@
+## [1.0.1] - 2023.01.24
+
+- Optimize the refresh mechanism for the multi-choice dialog
+
 ## [1.0.0] - 2022.08.26
 
 - Add titleDivider

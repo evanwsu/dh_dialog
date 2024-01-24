@@ -98,6 +98,16 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
   @override
   Widget buildItem(
       BuildContext context, int index, BorderRadius? borderRadius) {
+    if (multiChose) {
+      return Builder(
+          builder: (context) => _buildItem(context, index, borderRadius));
+    } else {
+      return _buildItem(context, index, borderRadius);
+    }
+  }
+
+  Widget _buildItem(
+      BuildContext context, int index, BorderRadius? borderRadius) {
     final DialogListItem<W, D> item = datas[index];
     W widget = item.widget;
 
