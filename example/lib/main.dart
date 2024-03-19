@@ -15,9 +15,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: Colors.red,
+        useMaterial3: false,
+        scaffoldBackgroundColor: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Home Page'),
     );
   }
 }
@@ -187,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         titleText: "星期单选",
                         itemAlignment: Alignment.centerLeft,
                         datas: weeks,
+                        dialogMaxHeight: 260,
                         multiChose: false,
                         titleDivider: Divider(height: 10, color: Colors.orange),
                       );

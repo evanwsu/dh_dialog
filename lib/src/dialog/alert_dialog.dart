@@ -139,6 +139,12 @@ class DHAlertDialog extends StatelessWidget {
   /// 对话框最大宽度
   final double? dialogWidth;
 
+  /// 最小高度
+  final double? dialogMinHeight;
+
+  /// 最大高度
+  final double? dialogMaxHeight;
+
   DHAlertDialog({
     Key? key,
     this.title,
@@ -172,10 +178,9 @@ class DHAlertDialog extends StatelessWidget {
     this.dialogPadding,
     this.dialogAlignment = Alignment.center,
     this.dialogWidth,
-  })  : assert(dialogAlignment != null),
-        assert(titleAlign != null),
-        assert(contentAlign != null),
-        super(key: key);
+    this.dialogMinHeight,
+    this.dialogMaxHeight,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +198,7 @@ class DHAlertDialog extends StatelessWidget {
     }
 
     // 标题分割线
-    if(hasTitleDivider && titleDivider == null){
+    if (hasTitleDivider && titleDivider == null) {
       titleDivider = Container(color: dividerColor, height: 1);
     }
 
@@ -269,6 +274,8 @@ class DHAlertDialog extends StatelessWidget {
       actionDivider: actionDivider,
       dialogAlignment: dialogAlignment,
       dialogWidth: dialogWidth,
+      dialogMinHeight: dialogMinHeight,
+      dialogMaxHeight: dialogMaxHeight,
     );
   }
 

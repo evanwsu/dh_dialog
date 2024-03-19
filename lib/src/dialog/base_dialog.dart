@@ -60,6 +60,12 @@ class DHDialog extends StatelessWidget {
   /// 对话框对齐方式
   final AlignmentGeometry dialogAlignment;
 
+  /// 对话框最小高度
+  final double? dialogMinHeight;
+
+  /// 对话框最小高度
+  final double? dialogMaxHeight;
+
   DHDialog({
     Key? key,
     this.title,
@@ -78,6 +84,8 @@ class DHDialog extends StatelessWidget {
     this.dialogPadding,
     this.dialogWidth,
     this.dialogAlignment = Alignment.center,
+    this.dialogMinHeight,
+    this.dialogMaxHeight,
   }) : super(key: key);
 
   @override
@@ -138,6 +146,8 @@ class DHDialog extends StatelessWidget {
       shape: shape,
       child: dialog,
       dialogWidth: dialogWidth,
+      dialogMinHeight: dialogMinHeight,
+      dialogMaxHeight: dialogMaxHeight,
     );
   }
 }
@@ -175,6 +185,12 @@ class BaseDialog extends StatelessWidget {
   /// 最大宽度
   final double? dialogWidth;
 
+  /// 对话框最大高度
+  final double? dialogMaxHeight;
+
+  /// 对话框最小高度
+  final double? dialogMinHeight;
+
   BaseDialog({
     Key? key,
     this.child,
@@ -185,13 +201,17 @@ class BaseDialog extends StatelessWidget {
     this.dialogAlignment = Alignment.center,
     this.dialogWidth,
     this.dialogPadding,
+    this.dialogMinHeight,
+    this.dialogMaxHeight,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final dialogMargin = this.dialogMargin ?? DialogStyle.dialogMargin;
     final DialogTheme dialogTheme = DialogTheme.of(context);
-    double? maxWidth = this.dialogWidth;
+    double? maxWidth = dialogWidth;
+    final minHeight = dialogMinHeight ?? 0;
+    final maxHeight = dialogMaxHeight ?? double.infinity;
 
     if (maxWidth == null) {
       final width = MediaQuery.of(context).size.width;
@@ -221,7 +241,12 @@ class BaseDialog extends StatelessWidget {
         child: Align(
           alignment: dialogAlignment,
           child: ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 280.0, maxWidth: maxWidth),
+            constraints: BoxConstraints(
+              minWidth: 280.0,
+              maxWidth: maxWidth,
+              minHeight: minHeight,
+              maxHeight: maxHeight,
+            ),
             child: Material(
               color: backgroundColor ?? dialogTheme.backgroundColor,
               elevation:

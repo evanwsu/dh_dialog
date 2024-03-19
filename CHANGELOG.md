@@ -1,3 +1,8 @@
+## [1.0.2] - 2024.03.19
+
+- dart minimum sdk 2.17
+- Add dialog minHeight and maxHeight
+
 ## [1.0.1] - 2023.01.24
 
 - Optimize the refresh mechanism for the multi-choice dialog

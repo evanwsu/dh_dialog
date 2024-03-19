@@ -1,11 +1,11 @@
 name: dh_dialog
 description: A new Flutter dialog package.
-version: 1.0.1
+version: 1.0.2
 author: evanwo
 homepage: https://github.com/evansherry/dh_dialog
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
