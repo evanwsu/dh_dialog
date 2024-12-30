@@ -90,6 +90,7 @@ class DHListDialog<W, D> extends DHAlertDialog {
     super.negativeTap,
     super.hasNegative = true,
     super.actionHeight,
+    super.actionPadding,
     super.dividerColor = DHColors.color_000000_15,
     super.actionDividerBuilder,
     super.backgroundColor,

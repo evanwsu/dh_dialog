@@ -77,6 +77,7 @@ class DHGridDialog<W, D> extends DHAlertDialog {
     super.actionHeight,
     super.dividerColor = DHColors.color_000000_15,
     super.actionDividerBuilder,
+    super.actionPadding,
     super.backgroundColor,
     super.topRadius = 20.0,
     super.bottomRadius = 20.0,

@@ -47,6 +47,7 @@ class DHChoiceDialog<W extends BaseChoiceItem, D> extends DHListDialog<W, D> {
     super.negativeTap,
     super.hasNegative = true,
     super.actionHeight,
+    super.actionPadding,
     super.dialogMargin,
     super.dialogPadding,
     super.backgroundColor,

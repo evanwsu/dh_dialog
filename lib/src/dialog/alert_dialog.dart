@@ -106,6 +106,9 @@ class DHAlertDialog extends StatelessWidget {
   /// 按钮高度设置
   final double? actionHeight;
 
+  /// 按钮padding
+  final EdgeInsets? actionPadding;
+
   /// action按钮间分割线，也包括listView 和 Action分割线
   /// 会覆盖[dividerColor]设置
   final DividerBuilder? actionDividerBuilder;
@@ -168,6 +171,7 @@ class DHAlertDialog extends StatelessWidget {
     this.negativeTap,
     this.hasNegative = true,
     this.actionHeight,
+    this.actionPadding,
     this.dividerColor = DHColors.color_000000_15,
     this.actionDividerBuilder,
     this.backgroundColor,
@@ -205,15 +209,17 @@ class DHAlertDialog extends StatelessWidget {
     final radius = Radius.circular(bottomRadius);
     if (hasNegative) {
       actions.add(Expanded(
-          child: ActionButton(
-        customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: radius,
-                bottomRight: hasPositive ? Radius.zero : radius)),
-        onTap: negativeTap ?? () => Navigator.pop(context),
-        text: negativeText ?? 'Cancel',
-        textStyle: negativeTextStyle ?? DialogStyle.negativeStyle,
-      )));
+        child: ActionButton(
+          customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: radius,
+                  bottomRight: hasPositive ? Radius.zero : radius)),
+          onTap: negativeTap ?? () => Navigator.pop(context),
+          text: negativeText ?? 'Cancel',
+          textStyle: negativeTextStyle ?? DialogStyle.negativeStyle,
+          innerPadding: actionPadding,
+        ),
+      ));
     }
 
     // 添加分割线
@@ -232,6 +238,7 @@ class DHAlertDialog extends StatelessWidget {
           text: positiveText ?? 'OK',
           textStyle: positiveTextStyle ?? DialogStyle.positiveStyle,
           onTap: positiveTap ?? () => Navigator.pop(context),
+          innerPadding: actionPadding,
         ),
       ));
     }
