@@ -1,3 +1,7 @@
+## [1.0.3] - 2024.12.30
+
+- Provide the actionPadding parameter for AlertDialog
+
 ## [1.0.2] - 2024.03.19
 
 - dart minimum sdk 2.17
