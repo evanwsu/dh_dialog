@@ -1,3 +1,7 @@
+## [1.0.4] - 2025.9.12
+
+- fix DialogThemeData
+
 ## [1.0.3] - 2024.12.30
 
 - Provide the actionPadding parameter for AlertDialog

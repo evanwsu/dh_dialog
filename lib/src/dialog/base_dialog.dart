@@ -208,7 +208,7 @@ class BaseDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dialogMargin = this.dialogMargin ?? DialogStyle.dialogMargin;
-    final DialogTheme dialogTheme = DialogTheme.of(context);
+    final DialogThemeData dialogTheme = DialogTheme.of(context);
     double? maxWidth = dialogWidth;
     final minHeight = dialogMinHeight ?? 0;
     final maxHeight = dialogMaxHeight ?? double.infinity;
