@@ -234,7 +234,10 @@ class _DHInputDialogState extends State<DHInputDialog> {
     super.initState();
     _controller = TextEditingController();
     String? text = widget.text;
-    if (text != null && text.isNotEmpty) _controller.text = text;
+    if (text != null && text.isNotEmpty) {
+      _controller.text = text;
+      _controller.selection = TextSelection.collapsed(offset: text.length);
+    }
 
     widget.controllerGetter?.call(_controller);
   }
@@ -249,7 +252,9 @@ class _DHInputDialogState extends State<DHInputDialog> {
   void didUpdateWidget(covariant DHInputDialog oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.text != widget.text) {
-      _controller.text = widget.text ?? '';
+      final text = widget.text ?? '';
+      _controller.text = text;
+      _controller.selection = TextSelection.collapsed(offset: text.length);
     }
     widget.controllerGetter?.call(_controller);
   }
