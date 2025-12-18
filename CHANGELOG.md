@@ -1,3 +1,7 @@
+## [1.0.5] - 2025.12.17
+
+- set TextField TextSelection
+
 ## [1.0.4] - 2025.9.12
 
 - fix DialogThemeData
