@@ -97,7 +97,7 @@ class DHDialog extends StatelessWidget {
         padding: titlePadding ??
             EdgeInsets.fromLTRB(
                 24.0, 24.0, 24.0, content == null ? 24.0 : 16.0),
-        child: DefaultTextStyle(
+        child: DefaultTextStyle.merge(
           style: titleTextStyle ?? DialogStyle.titleStyle,
           child: title!,
         ),
@@ -114,7 +114,7 @@ class DHDialog extends StatelessWidget {
               24.0,
               action == null ? MediaQuery.of(context).padding.bottom : 24.0,
             ),
-        child: DefaultTextStyle(
+        child: DefaultTextStyle.merge(
           style: contentTextStyle ?? DialogStyle.contentStyle,
           child: content!,
         ),
