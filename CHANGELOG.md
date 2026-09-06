@@ -1,3 +1,7 @@
+## 1.0.6 - 2026.09.06
+
+- Preserve inherited text style properties, including theme font families, for dialog titles and content.
+
 ## [1.0.5] - 2025.12.17
 
 - set TextField TextSelection
